@@ -31,8 +31,8 @@ export default function LoginClient() {
       <div className="w-full max-w-[400px]">
         <div className="bg-[#111] border border-gray-800 rounded-xl p-8">
           <div className="text-center mb-8">
-            <h1 className="text-xl font-bold text-white mb-2">Mon espace</h1>
-            <p className="text-gray-500 text-sm">Connectez-vous pour accéder à vos alertes</p>
+            <h1 className="text-xl font-bold text-white mb-2">My account</h1>
+            <p className="text-gray-500 text-sm">Log in to access your alerts</p>
           </div>
 
           <form onSubmit={handleLogin} className="flex flex-col gap-3">
@@ -48,7 +48,7 @@ export default function LoginClient() {
               type="password"
               value={password}
               onChange={function(e) { setPassword(e.target.value) }}
-              placeholder="Mot de passe"
+              placeholder="Password"
               required
               className="w-full px-4 py-3 bg-[#0a0a0a] border border-gray-800 rounded-lg text-gray-200 text-sm outline-none focus:border-[#00d4aa]/50 transition-colors placeholder:text-gray-600"
             />
@@ -64,16 +64,16 @@ export default function LoginClient() {
               disabled={loading}
               className="w-full py-3 bg-[#00d4aa] text-black rounded-lg font-bold text-sm hover:bg-[#00b892] transition-colors disabled:opacity-50 mt-2"
             >
-              {loading ? "Connexion..." : "Se connecter"}
+              {loading ? "Logging in..." : "Log in"}
             </button>
           </form>
         </div>
 
         <p className="text-center text-gray-600 text-xs mt-6">
-          {"Pas encore de compte ? "}
-          <a href="/" className="text-[#00d4aa] hover:underline">{"S'inscrire"}</a>
+          {"No account yet? "}
+          <a href="/" className="text-[#00d4aa] hover:underline">{"Sign up"}</a>
           {" — "}
-          <a href="/mot-de-passe-oublie" className="text-gray-500 hover:text-gray-400 transition-colors">Mot de passe oublié</a>
+          <a href="/mot-de-passe-oublie" className="text-gray-500 hover:text-gray-400 transition-colors">Forgot password</a>
         </p>
       </div>
     </div>
