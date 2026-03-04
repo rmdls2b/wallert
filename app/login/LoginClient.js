@@ -71,7 +71,7 @@ export default function LoginClient() {
 
         <p className="text-center text-gray-600 text-xs mt-6">
           {"No account yet? "}
-          <a href="/" className="text-[#00d4aa] hover:underline">{"Sign up"}</a>
+          <a href="/register" className="text-[#00d4aa] hover:underline">{"Sign up"}</a>
           {" — "}
           <a href="/mot-de-passe-oublie" className="text-gray-500 hover:text-gray-400 transition-colors">Forgot password</a>
         </p>
