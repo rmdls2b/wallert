@@ -3,24 +3,24 @@ export default function Accueil() {
     <div className="bg-[#080A08] min-h-screen">
 
       {/* HERO */}
-      <div className="min-h-screen flex items-end pb-24 px-6 md:px-16 lg:px-32 xl:px-40 max-w-[1400px] mx-auto">
+      <div className="min-h-screen flex items-center px-6 md:px-16 lg:px-32 xl:px-40 pt-16 pb-16 max-w-[1400px] mx-auto">
         <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24 w-full">
 
           {/* Left */}
           <div className="flex-1 w-full">
-            <div className="inline-flex items-center gap-2 bg-[#111311] border border-white/5 rounded-full px-4 py-1.5 mb-8">
+            <div className="inline-flex items-center gap-2 bg-[#111311] border border-white/5 rounded-full px-4 py-1.5 mb-6">
               <span className="w-1.5 h-1.5 rounded-full bg-[#00FF85] animate-pulse" />
               <span className="text-[#9A9A95] text-xs tracking-widest uppercase">Silent alarm · Always on</span>
             </div>
 
             <h1 className="text-[clamp(36px,5vw,60px)] font-extrabold leading-[1.07] tracking-[-2px] mb-6">
               Your wallet.<br />
-              Your <span className="text-[#00FF85]">silent alarm</span>.<br />
+              A <span className="text-[#00FF85]">silent alarm</span>.<br />
               Under <span className="text-red-400">duress</span>.
             </h1>
 
             <p className="text-[#C8C8C2] text-lg leading-relaxed mb-10 max-w-lg">
-              Wallert monitors a dedicated wallet. If you're forced to transfer funds, your trusted contacts are instantly alerted — before anyone even knows you're in danger.
+              Wallert monitors a dedicated wallet. If you're forced to transfer funds, your trusted contacts are instantly alerted.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3 items-start">
@@ -36,7 +36,6 @@ export default function Accueil() {
           {/* Flow card */}
           <div className="w-full max-w-[300px] lg:max-w-[320px] mx-auto lg:mx-0 shrink-0">
             <div className="bg-[#111311] border border-white/7 rounded-2xl p-7">
-
               <div className="flex items-start gap-4 pb-5 border-b border-white/5">
                 <div className="w-9 h-9 rounded-lg bg-[#00FF85]/10 border border-[#00FF85]/20 flex items-center justify-center shrink-0 mt-0.5">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00FF85" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
@@ -47,7 +46,6 @@ export default function Accueil() {
                   <p className="text-[#9A9A95] text-xs font-mono mt-1">0x8a...c9b2 · ETH</p>
                 </div>
               </div>
-
               <div className="flex items-start gap-4 py-5 border-b border-white/5">
                 <div className="w-9 h-9 rounded-lg bg-orange-500/10 border border-orange-500/20 flex items-center justify-center shrink-0 mt-0.5">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F97316" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
@@ -58,7 +56,6 @@ export default function Accueil() {
                   <p className="text-[#9A9A95] text-xs mt-1">Signal triggered instantly</p>
                 </div>
               </div>
-
               <div className="flex items-start gap-4 pt-5">
                 <div className="w-9 h-9 rounded-lg bg-red-500/10 border border-red-500/25 flex items-center justify-center shrink-0 mt-0.5">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F87171" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
@@ -72,7 +69,6 @@ export default function Accueil() {
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
         </div>
@@ -87,7 +83,7 @@ export default function Accueil() {
             Nothing protects <em>you</em>.
           </h2>
           <p className="text-[#C8C8C2] text-base leading-relaxed max-w-xl mb-10">
-            Home invasions, kidnappings, forced transfers — physical attacks on crypto holders are rising. When someone has a weapon to your head, no seed phrase protection helps. You're alone, and no one knows.
+            Home invasions, forced transfers, physical attacks on crypto holders are rising. When someone has a weapon to your head, you're alone, and no one knows.
           </p>
           <div className="bg-gradient-to-r from-red-500/8 to-transparent border border-red-500/20 rounded-xl px-8 py-6 max-w-2xl">
             <p className="text-white font-semibold text-lg leading-snug">The attacker sees a transfer.</p>
@@ -101,12 +97,11 @@ export default function Accueil() {
         <div className="px-6 md:px-16 lg:px-32 xl:px-40 max-w-[1400px] mx-auto py-20">
           <p className="text-[#00FF85] text-[11px] font-semibold tracking-[3px] uppercase mb-4">Protocol</p>
           <h2 className="text-[clamp(26px,3.5vw,44px)] font-extrabold tracking-tight leading-[1.12] mb-12">Three steps. No complexity.</h2>
-
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {[
-              { num: "01", title: "Security wallet", desc: "Set aside a credible amount on a dedicated wallet. This address is placed under continuous surveillance. It becomes your emergency trigger — separate from your real holdings." },
+              { num: "01", title: "Security wallet", desc: "Set aside a credible amount on a dedicated wallet, separate from your real holdings. This address is placed under continuous surveillance. It becomes your emergency trigger." },
               { num: "02", title: "Trusted circle", desc: "Define your emergency contacts, alert channels (email, Telegram), and exact instructions. What should they do? Call police? Contact SEAL 911? You decide in advance." },
-              { num: "03", title: "Silent signal", desc: "Transfer from the watched wallet. The attacker sees a transaction. Your network receives an instant alert with your instructions — and acts. Alerts resend every 5 minutes until confirmed." },
+              { num: "03", title: "Silent signal", desc: "Transfer from the watched wallet. The attacker sees a transaction. Your network receives an instant alert with your instructions, and acts. Alerts resend every 5 minutes until confirmed." },
             ].map(s => (
               <div key={s.num} className="bg-[#111311] border border-white/5 rounded-xl p-7 relative overflow-hidden">
                 <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#00FF85] to-transparent" />
@@ -124,20 +119,21 @@ export default function Accueil() {
         <div className="px-6 md:px-16 lg:px-32 xl:px-40 max-w-[1400px] mx-auto py-20">
           <p className="text-[#00FF85] text-[11px] font-semibold tracking-[3px] uppercase mb-4">Capabilities</p>
           <h2 className="text-[clamp(26px,3.5vw,44px)] font-extrabold tracking-tight leading-[1.12] mb-12">Built for the real world.</h2>
-
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {[
-              { icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>, title: "Persistent alerts", desc: "Alerts repeat every 5 minutes until a contact confirms they've acted. No message gets lost." },
-              { icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>, title: "Multi-channel", desc: "Email and Telegram simultaneously. Multiply the chances someone gets through." },
-              { icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>, title: "Test mode", desc: "Simulate a full alert before going live. Confirm every contact and channel works." },
-              { icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>, title: "Emergency instructions", desc: "Write precise directives: who to call, what to say, what to do with the transaction hash." },
-              { icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>, title: "Unlimited wallets", desc: "Monitor as many addresses as needed. Each wallet is tracked independently." },
-              { icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>, title: "Instant detection", desc: "On-chain monitoring via Alchemy. The alert fires the moment the transaction is broadcast." },
+              { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>, title: "Unlimited wallets", desc: "Monitor as many addresses as needed. Each wallet is tracked independently." },
+              { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>, title: "Multi-channel", desc: "Email and Telegram simultaneously. Multiply the chances someone gets through." },
+              { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>, title: "Emergency instructions", desc: "Write precise directives: who to call, what to say, what to do with the transaction hash." },
+              { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>, title: "Instant detection", desc: "On-chain monitoring via Alchemy. The alert fires the moment the transaction is broadcast." },
+              { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>, title: "Persistent alerts", desc: "Alerts repeat every 5 minutes until a contact confirms they've acted. No message gets lost." },
+              { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>, title: "Test mode", desc: "Simulate a full alert before going live. Confirm every contact and channel works." },
             ].map(f => (
               <div key={f.title} className="border border-white/5 rounded-xl p-6 hover:border-[#00FF85]/20 hover:bg-[#00FF85]/[0.02] transition-all">
-                <div className="text-[#00FF85] mb-4">{f.icon}</div>
-                <h4 className="text-white font-semibold text-sm mb-2">{f.title}</h4>
-                <p className="text-[#9A9A95] text-sm leading-relaxed">{f.desc}</p>
+                <div className="flex items-center gap-3 mb-3">
+                  <span className="text-[#00FF85]">{f.icon}</span>
+                  <h4 className="text-white font-semibold text-base">{f.title}</h4>
+                </div>
+                <p className="text-[#9A9A95] text-base leading-relaxed">{f.desc}</p>
               </div>
             ))}
           </div>
@@ -154,13 +150,12 @@ export default function Accueil() {
                 Built by someone who's seen both sides.
               </h2>
               <p className="text-[#C8C8C2] text-base leading-relaxed mb-4">
-                6 years as Head of Product at Ledger. 7 million users. I know what hardware wallets protect — and what they don't.
+                6 years as Head of Product at Ledger. I know what hardware wallets protect, and what they don't.
               </p>
               <p className="text-[#C8C8C2] text-base leading-relaxed">
-                Since 2024, I've been advising high-net-worth crypto holders on security. The physical threat is real, and growing. I built Wallert first for myself. Then for everyone.
+                Since 2024, I've been helping crypto holders securing their funds. As the physical threat is real and growing, I built Wallert first for myself. Then for everyone.
               </p>
             </div>
-
             <div className="flex-1">
               <blockquote className="border-l-2 border-[#00FF85] pl-6 mb-8">
                 <p className="text-white text-lg leading-relaxed italic">
@@ -168,17 +163,13 @@ export default function Accueil() {
                 </p>
               </blockquote>
               <p className="text-[#C8C8C2] text-base leading-relaxed mb-4">
-                The best solution is often to remove yourself from the equation entirely — don't have easy access to your funds. But not everyone makes that choice.
+                The best solution is often to remove yourself from the equation entirely: no easy access to your funds. But not everyone makes that choice.
               </p>
               <p className="text-[#C8C8C2] text-base leading-relaxed mb-8">
-                For those who hold, and hold directly: this is a safety net. Not a guarantee. An extra layer that costs nothing to activate, and could matter when nothing else does.
+                For those who hold directly: this is a safety net. Not a guarantee. An extra layer that costs nothing to activate, and could matter when nothing else does.
               </p>
-              <div className="mb-8">
-                <p className="text-white font-semibold text-base">Remy — Founder, Wallert</p>
-                <p className="text-[#9A9A95] text-sm mt-0.5">Former Head of Product @ Ledger · Crypto security consultant</p>
-              </div>
               <div className="bg-orange-500/5 border border-orange-500/20 rounded-xl p-5">
-                <p className="text-[#C8A96E] text-sm leading-relaxed">
+                <p className="text-[#C8A96E] text-base leading-relaxed">
                   <strong className="text-orange-300">⚠ Wallert does not prevent attacks or theft.</strong> It's designed to alert your trusted circle as quickly as possible. Whether that changes the outcome depends on many factors outside our control.
                 </p>
               </div>
@@ -192,12 +183,11 @@ export default function Accueil() {
         <div className="px-6 md:px-16 lg:px-32 xl:px-40 max-w-[1400px] mx-auto py-20">
           <p className="text-[#00FF85] text-[11px] font-semibold tracking-[3px] uppercase mb-4">Privacy & Security</p>
           <h2 className="text-[clamp(26px,3.5vw,44px)] font-extrabold tracking-tight leading-[1.12] mb-4">Designed to leave no trace.</h2>
-          <p className="text-[#C8C8C2] text-base max-w-lg mb-12">A security tool must not become a risk vector. Wallert is built to minimize exposure — even in a compromise scenario.</p>
-
+          <p className="text-[#C8C8C2] text-base max-w-lg mb-12">A security tool must not become a risk vector. Wallert is built to minimize exposure, even in a compromise scenario.</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {[
               { title: "Anonymous by design", desc: "Register with a non-nominal email. No link between your identity, your Wallert account, and your real funds." },
-              { title: "Isolated wallet", desc: "The monitored wallet is dedicated and separate. It cannot be traced back to your main holdings." },
+              { title: "Isolated wallet", desc: "The monitored wallet is dedicated and separate. Make sure it can't be traced back to your main holdings." },
               { title: "Open source & self-hostable", desc: "Full code transparency. Run your own instance if you need complete control over your data." },
               { title: "Private infrastructure", desc: "Dedicated server in France (Scaleway), isolated container, HTTPS encryption, DDoS protection via Cloudflare." },
             ].map(s => (
@@ -206,8 +196,8 @@ export default function Accueil() {
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#00FF85" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                 </div>
                 <div>
-                  <h4 className="text-white font-semibold text-sm mb-1.5">{s.title}</h4>
-                  <p className="text-[#9A9A95] text-sm leading-relaxed">{s.desc}</p>
+                  <h4 className="text-white font-semibold text-base mb-1.5">{s.title}</h4>
+                  <p className="text-[#9A9A95] text-base leading-relaxed">{s.desc}</p>
                 </div>
               </div>
             ))}
