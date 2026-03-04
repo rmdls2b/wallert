@@ -1,4 +1,5 @@
 export default function Accueil() {
+  const githubPath = "M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.79-.26.79-.58v-2.23c-3.34.73-4.03-1.42-4.03-1.42-.55-1.39-1.34-1.76-1.34-1.76-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.49 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 013-.4c1.02.005 2.05.14 3 .4 2.29-1.55 3.3-1.23 3.3-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.19.69.8.58C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"
   return (
     <div className="bg-[#080A08] min-h-screen">
 
@@ -190,7 +191,7 @@ export default function Accueil() {
             {[
               { title: "Anonymous by design", desc: "Register with a non-nominal email. No link between your identity, your Wallert account, and your real funds." },
               { title: "Isolated wallet", desc: "The monitored wallet is dedicated and separate. Make sure it can't be traced back to your main holdings." },
-              { title: "Open source & self-hostable", desc: "Full code transparency. Run your own instance if you need complete control over your data." },
+              { title: "Open source & self-hostable", desc: "Full code transparency. Run your own instance if you need complete control over your data.", hasGithub: true },
               { title: "Private infrastructure", desc: "Dedicated server in France (Scaleway), isolated container, HTTPS encryption, DDoS protection via Cloudflare." },
             ].map(s => (
               <div key={s.title} className="flex items-start gap-4 border border-white/5 rounded-xl p-6">
@@ -200,6 +201,12 @@ export default function Accueil() {
                 <div>
                   <h4 className="text-white font-semibold text-base mb-1.5">{s.title}</h4>
                   <p className="text-[#9A9A95] text-base leading-relaxed">{s.desc}</p>
+                  {s.hasGithub && (
+                    <a href="https://github.com/rmdls2b/wallert" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 mt-3 text-[#00FF85] text-sm font-medium hover:opacity-80 transition-opacity">
+                      <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d={githubPath} /></svg>
+                      View on GitHub →
+                    </a>
+                  )}
                 </div>
               </div>
             ))}
@@ -222,14 +229,23 @@ export default function Accueil() {
           </a>
         </div>
       </div>
-<div className="flex items-center justify-center gap-6 mt-10">
-  <a href="/about" className="text-[#9A9A95] text-sm hover:text-white transition-colors">About</a>
-  <a href="https://github.com/rmdls2b/wallert" target="_blank" rel="noopener noreferrer" className="text-[#9A9A95] text-sm hover:text-white transition-colors flex items-center gap-1.5">
-    <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.79-.26.79-.58v-2.23c-3.34.73-4.03-1.42-4.03-1.42-.55-1.39-1.34-1.76-1.34-1.76-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.49 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 013-.4c1.02.005 2.05.14 3 .4 2.29-1.55 3.3-1.23 3.3-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.19.69.8.58C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
-    GitHub
-  </a>
-  <a href="mailto:contact@wallert.app" className="text-[#9A9A95] text-sm hover:text-white transition-colors">Contact</a>
-</div>
+
+      {/* FOOTER */}
+      <footer className="border-t border-white/10">
+        <div className="px-6 md:px-16 lg:px-32 xl:px-40 max-w-[1400px] mx-auto py-10">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
+            <p className="text-[#555] text-sm">© 2025 Wallert. Open source project.</p>
+            <div className="flex items-center gap-6">
+              <a href="/about" className="text-[#9A9A95] text-sm hover:text-white transition-colors">Behind Wallert</a>
+              <a href="https://github.com/rmdls2b/wallert" target="_blank" rel="noopener noreferrer" className="text-[#9A9A95] text-sm hover:text-white transition-colors flex items-center gap-2">
+                <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d={githubPath} /></svg>
+                GitHub
+              </a>
+              <a href="mailto:contact@wallert.app" className="text-[#9A9A95] text-sm hover:text-white transition-colors">Contact</a>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }
