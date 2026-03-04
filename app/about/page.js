@@ -33,7 +33,7 @@ export default function About() {
         </p>
       </section>
 
-      <section className="mb-12">
+{/* <section className="mb-12">
         <h2 className="text-[#00d4aa] text-xs font-semibold tracking-widest uppercase mb-4">Designed to leave no trace</h2>
         <p className="text-gray-400 text-base leading-relaxed mb-4">
           {"A security tool must not become a risk vector. Wallert is built on 3 pillars to minimize exposure in case of a data breach."}
@@ -55,7 +55,7 @@ export default function About() {
         <p className="text-gray-400 text-base leading-relaxed">
           {"The result: even if Wallert were compromised, there's no direct link between Wallert, your identity, and your funds."}
         </p>
-      </section>
+      </section> */}
 
       <section className="mb-12">
         <h2 className="text-[#00d4aa] text-xs font-semibold tracking-widest uppercase mb-4">A personal tool first</h2>
