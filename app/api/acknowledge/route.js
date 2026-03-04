@@ -41,7 +41,6 @@ const page = (title, subtitle, icon, color) => `<!DOCTYPE html>
       font-weight: 700;
       letter-spacing: 0.08em;
       color: rgba(255,255,255,0.2);
-      text-transform: uppercase;
       margin-bottom: 32px;
     }
     .logo span { color: #00d4aa; }
