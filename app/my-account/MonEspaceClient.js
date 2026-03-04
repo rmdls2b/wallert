@@ -34,7 +34,7 @@ export default function MonEspaceClient() {
   }, [])
 
   async function loadData(userId) {
-    const res = await fetch("/api/mon-espace?userId=" + userId)
+    const res = await fetch("/api/my-account?userId=" + userId)
     if (res.ok) {
       const json = await res.json()
       setData(json)

@@ -19,7 +19,7 @@ export default function LoginClient() {
     const data = await res.json()
     if (res.ok) {
       localStorage.setItem("lcg_user", JSON.stringify({ userId: data.userId, pseudonym: data.pseudonym, email }))
-      window.location.href = "/mon-espace"
+      window.location.href = "/my-account"
     } else {
       setError(data.error)
       setLoading(false)
