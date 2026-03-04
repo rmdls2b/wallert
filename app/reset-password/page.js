@@ -17,8 +17,8 @@ export default function ResetPassword() {
   async function handleSubmit(e) {
     e.preventDefault()
     setError("")
-    if (password.length < 8) { setError("Mot de passe trop court (8 caractères minimum)"); return }
-    if (password !== confirm) { setError("Les mots de passe ne correspondent pas"); return }
+    if (password.length < 8) { setError("Password too short (8 characters minimum)"); return }
+    if (password !== confirm) { setError("Passwords do not match"); return }
     setLoading(true)
     const res = await fetch("/api/reset-password", {
       method: "POST",
@@ -34,26 +34,26 @@ export default function ResetPassword() {
   if (done) return (
     <div style={{ maxWidth: "400px", margin: "80px auto", textAlign: "center" }}>
       <div style={{ fontSize: "48px", marginBottom: "16px" }}>✓</div>
-      <h2 style={{ fontSize: "18px", color: "#00d4aa", marginBottom: "8px" }}>Mot de passe modifié</h2>
+      <h2 style={{ fontSize: "18px", color: "#00d4aa", marginBottom: "8px" }}>Password updated</h2>
       <a href="/login" style={{ display: "inline-block", marginTop: "16px", padding: "12px 24px", background: "#00d4aa", borderRadius: "6px", color: "#000", textDecoration: "none", fontWeight: "bold" }}>
-        Se connecter
+        Log in
       </a>
     </div>
   )
 
   return (
     <div style={{ maxWidth: "400px", margin: "80px auto", textAlign: "center" }}>
-      <h1 style={{ fontSize: "22px", marginBottom: "8px" }}>Nouveau mot de passe</h1>
-      <p style={{ color: "#888", marginBottom: "24px", fontSize: "14px" }}>Choisissez un nouveau mot de passe pour votre compte.</p>
+      <h1 style={{ fontSize: "22px", marginBottom: "8px" }}>New password</h1>
+      <p style={{ color: "#888", marginBottom: "24px", fontSize: "14px" }}>Choose a new password for your account.</p>
       <form onSubmit={handleSubmit}>
-        <input type="password" required value={password} onChange={function(e) { setPassword(e.target.value) }} placeholder="Nouveau mot de passe"
+        <input type="password" required value={password} onChange={function(e) { setPassword(e.target.value) }} placeholder="New password"
           style={{ width: "100%", padding: "12px", backgroundColor: "#111", border: "1px solid #333", borderRadius: "6px", color: "#e0e0e0", outline: "none", marginBottom: "12px", boxSizing: "border-box" }} />
-        <input type="password" required value={confirm} onChange={function(e) { setConfirm(e.target.value) }} placeholder="Confirmer le mot de passe"
+        <input type="password" required value={confirm} onChange={function(e) { setConfirm(e.target.value) }} placeholder="Confirm password"
           style={{ width: "100%", padding: "12px", backgroundColor: "#111", border: "1px solid #333", borderRadius: "6px", color: "#e0e0e0", outline: "none", marginBottom: "12px", boxSizing: "border-box" }} />
         {error && <p style={{ color: "#ff4444", marginBottom: "12px" }}>{error}</p>}
         <button type="submit" disabled={loading}
           style={{ width: "100%", padding: "12px", backgroundColor: "#00d4aa", color: "#000", border: "none", borderRadius: "6px", fontWeight: "bold", cursor: "pointer" }}>
-          {loading ? "Modification..." : "Modifier le mot de passe"}
+          {loading ? "Updating..." : "Update password"}
         </button>
       </form>
     </div>
