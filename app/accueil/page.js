@@ -15,12 +15,12 @@ export default function Accueil() {
 
             <h1 className="text-[clamp(36px,5vw,60px)] font-extrabold leading-[1.07] tracking-[-2px] mb-6">
               Your wallet.<br />
-              Your <span className="text-[#00FF85]">silent alarm</span>.<br />
+              A <span className="text-[#00FF85]">silent alarm</span>.<br />
               Under <span className="text-red-400">duress</span>.
             </h1>
 
             <p className="text-[#C8C8C2] text-lg leading-relaxed mb-10 max-w-lg">
-              Wallert monitors a dedicated wallet. If you're forced to transfer funds, your trusted contacts are instantly alerted — before anyone even knows you're in danger.
+              Wallert monitors a dedicated wallet. If you're forced to transfer funds, your trusted contacts are instantly alerted.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3 items-start">
@@ -87,7 +87,7 @@ export default function Accueil() {
             Nothing protects <em>you</em>.
           </h2>
           <p className="text-[#C8C8C2] text-base leading-relaxed max-w-xl mb-10">
-            Home invasions, kidnappings, forced transfers — physical attacks on crypto holders are rising. When someone has a weapon to your head, no seed phrase protection helps. You're alone, and no one knows.
+            Home invasions, forced transfers — physical attacks on crypto holders are rising. When someone has a weapon to your head, you're alone, and no one knows.
           </p>
           <div className="bg-gradient-to-r from-red-500/8 to-transparent border border-red-500/20 rounded-xl px-8 py-6 max-w-2xl">
             <p className="text-white font-semibold text-lg leading-snug">The attacker sees a transfer.</p>
@@ -104,9 +104,9 @@ export default function Accueil() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {[
-              { num: "01", title: "Security wallet", desc: "Set aside a credible amount on a dedicated wallet. This address is placed under continuous surveillance. It becomes your emergency trigger — separate from your real holdings." },
+              { num: "01", title: "Security wallet", desc: "Set aside a credible amount on a dedicated wallet, separate from your real holdings. This address is placed under continuous surveillance. It becomes your emergency trigger." },
               { num: "02", title: "Trusted circle", desc: "Define your emergency contacts, alert channels (email, Telegram), and exact instructions. What should they do? Call police? Contact SEAL 911? You decide in advance." },
-              { num: "03", title: "Silent signal", desc: "Transfer from the watched wallet. The attacker sees a transaction. Your network receives an instant alert with your instructions — and acts. Alerts resend every 5 minutes until confirmed." },
+              { num: "03", title: "Silent signal", desc: "Transfer from the watched wallet. The attacker sees a transaction. Your network receives an instant alert with your instructions, and acts. Alerts resend every 5 minutes until confirmed." },
             ].map(s => (
               <div key={s.num} className="bg-[#111311] border border-white/5 rounded-xl p-7 relative overflow-hidden">
                 <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#00FF85] to-transparent" />
@@ -127,13 +127,13 @@ export default function Accueil() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {[
-              { icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>, title: "Persistent alerts", desc: "Alerts repeat every 5 minutes until a contact confirms they've acted. No message gets lost." },
-              { icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>, title: "Multi-channel", desc: "Email and Telegram simultaneously. Multiply the chances someone gets through." },
-              { icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>, title: "Test mode", desc: "Simulate a full alert before going live. Confirm every contact and channel works." },
-              { icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>, title: "Emergency instructions", desc: "Write precise directives: who to call, what to say, what to do with the transaction hash." },
               { icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>, title: "Unlimited wallets", desc: "Monitor as many addresses as needed. Each wallet is tracked independently." },
+              { icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>, title: "Multi-channel", desc: "Email and Telegram simultaneously. Multiply the chances someone gets through." },
+              { icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>, title: "Emergency instructions", desc: "Write precise directives: who to call, what to say, what to do with the transaction hash." },
               { icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>, title: "Instant detection", desc: "On-chain monitoring via Alchemy. The alert fires the moment the transaction is broadcast." },
-            ].map(f => (
+              { icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>, title: "Persistent alerts", desc: "Alerts repeat every 5 minutes until a contact confirms they've acted. No message gets lost." },
+              { icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>, title: "Test mode", desc: "Simulate a full alert before going live. Confirm every contact and channel works." },
+                ].map(f => (
               <div key={f.title} className="border border-white/5 rounded-xl p-6 hover:border-[#00FF85]/20 hover:bg-[#00FF85]/[0.02] transition-all">
                 <div className="text-[#00FF85] mb-4">{f.icon}</div>
                 <h4 className="text-white font-semibold text-sm mb-2">{f.title}</h4>
@@ -154,10 +154,10 @@ export default function Accueil() {
                 Built by someone who's seen both sides.
               </h2>
               <p className="text-[#C8C8C2] text-sm leading-relaxed mb-4">
-                6 years as Head of Product at Ledger. 7 million users. I know what hardware wallets protect — and what they don't.
+                6 years as Head of Product at Ledger. 7 million users. I know what hardware wallets protect, and what they don't.
               </p>
               <p className="text-[#C8C8C2] text-sm leading-relaxed">
-                Since 2024, I've been advising high-net-worth crypto holders on security. The physical threat is real, and growing. I built Wallert first for myself. Then for everyone.
+                Since 2024, I've been helping crypto holders securing their funds. I built Wallert first for myself. Then for everyone.
               </p>
             </div>
 
@@ -168,15 +168,11 @@ export default function Accueil() {
                 </p>
               </blockquote>
               <p className="text-[#C8C8C2] text-sm leading-relaxed mb-4">
-                The best solution is often to remove yourself from the equation entirely — don't have easy access to your funds. But not everyone makes that choice.
+                The best solution is often to remove yourself from the equation entirely, don't have easy access to your funds. But not everyone makes that choice.
               </p>
               <p className="text-[#C8C8C2] text-sm leading-relaxed mb-8">
-                For those who hold, and hold directly: this is a safety net. Not a guarantee. An extra layer that costs nothing to activate, and could matter when nothing else does.
+                For those who hold directly: this is a safety net. Not a guarantee. An extra layer that costs nothing to activate, and could matter when nothing else does.
               </p>
-              <div className="mb-8">
-                <p className="text-white font-semibold text-sm">Remy — Founder, Wallert</p>
-                <p className="text-[#9A9A95] text-xs mt-0.5">Former Head of Product @ Ledger · Crypto security consultant</p>
-              </div>
               <div className="bg-orange-500/5 border border-orange-500/20 rounded-xl p-5">
                 <p className="text-[#C8A96E] text-sm leading-relaxed">
                   <strong className="text-orange-300">⚠ Wallert does not prevent attacks or theft.</strong> It's designed to alert your trusted circle as quickly as possible. Whether that changes the outcome depends on many factors outside our control.
@@ -223,7 +219,7 @@ export default function Accueil() {
             Set it up once.<br />Hope to never use it.
           </h2>
           <p className="text-[#C8C8C2] text-base mb-10 max-w-md mx-auto">
-            Takes 5 minutes. Free. The silence, in case of an attack, costs more than anything else.
+            Takes 5 minutes. Free. The silence in case of an attack costs more than anything else.
           </p>
           <a href="/" className="inline-block px-10 py-4 bg-[#00FF85] text-black rounded-lg font-bold text-base hover:opacity-90 transition-opacity">
             Activate protection →
