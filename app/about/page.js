@@ -15,21 +15,24 @@ export default function About() {
         <p className="text-gray-400 text-base leading-relaxed mb-4">
           {"When faced with violence, no hardware wallet protects you. You're ALONE, and no one knows you're in danger."}
         </p>
-        <p className="text-gray-400 text-base leading-relaxed">
-          {"IMPORTANT: the best solution today is often to remove yourself from the equation entirely — not having easy access to your funds. But not everyone makes that choice."}
-        </p>
       </section>
 
       <section className="mb-12">
-        <h2 className="text-[#00d4aa] text-xs font-semibold tracking-widest uppercase mb-4">The idea</h2>
+        <h2 className="text-[#00d4aa] text-xs font-semibold tracking-widest uppercase mb-4">The idea: a personal tool first</h2>
         <p className="text-gray-400 text-base leading-relaxed mb-4">
-          {"I built Wallert as an additional layer of protection."}
+          {"I built Wallert for myself first, as an additional layer of protection."}
         </p>
         <p className="text-gray-400 text-base leading-relaxed mb-4">
-          {"The concept: a dedicated wallet, placed under surveillance. If a transfer is made under duress, that movement triggers a silent alarm. The attacker sees a payout. In reality, it's a distress signal."}
+          {"The concept: a dedicated wallet, placed under surveillance. If a transfer is made under duress, that movement triggers a silent alarm, a distress signal."}
         </p>
         <p className="text-gray-400 text-base leading-relaxed">
-          {"Within seconds, a trusted circle receives an alert with your instructions — call the police, act now, etc."}
+          {"Within seconds, a trusted circle receives an alert with your instructions, call the police, etc."}
+        </p>
+        <p className="text-gray-400 text-base leading-relaxed mb-4">
+          {"When I showed the concept to people around me, the reaction was unanimous: \"I want the same thing.\""}
+        </p>
+        <p className="text-gray-400 text-base leading-relaxed mb-4">
+          {"So I turned it into something configurable, now accessible to everyone."}
         </p>
       </section>
 
@@ -57,7 +60,7 @@ export default function About() {
         </p>
       </section> */}
 
-      <section className="mb-12">
+    {/*  <section className="mb-12">
         <h2 className="text-[#00d4aa] text-xs font-semibold tracking-widest uppercase mb-4">A personal tool first</h2>
         <p className="text-gray-400 text-base leading-relaxed mb-4">
           {"I built Wallert for myself first. When I showed the concept to people around me, the reaction was unanimous: \"I want the same thing.\""}
@@ -68,15 +71,15 @@ export default function About() {
         <p className="text-gray-400 text-base leading-relaxed">
           {"Wallert is now available to all."}
         </p>
-      </section>
+      </section> */}
 
       <section className="mb-12">
-        <h2 className="text-[#00d4aa] text-xs font-semibold tracking-widest uppercase mb-4">Let's be clear</h2>
+        <h2 className="text-[#00d4aa] text-xs font-semibold tracking-widest uppercase mb-4">Let's be clear on what Wallert is not</h2>
         <p className="text-gray-400 text-base leading-relaxed mb-4">
           {"Wallert doesn't prevent attacks or theft. That's not its job."}
         </p>
         <p className="text-gray-400 text-base leading-relaxed mb-4">
-          {"Its job is to break the silence — fast. Will the police arrive in time? Maybe not. But without Wallert, no one even knows you're in danger. That's the worst scenario."}
+          {"Its job is to break the silence, fast. Will the police arrive in time? Maybe not. But without Wallert, no one knows you're in danger"}
         </p>
         <p className="text-gray-400 text-base leading-relaxed">
           {"It's a safety net, a daily peace of mind. Not a guarantee."}
@@ -84,17 +87,17 @@ export default function About() {
       </section>
 
       <section className="mb-12">
-        <h2 className="text-[#00d4aa] text-xs font-semibold tracking-widest uppercase mb-4">A beta, built with Claude</h2>
+        <h2 className="text-[#00d4aa] text-xs font-semibold tracking-widest uppercase mb-4">A beta built with Claude</h2>
         <p className="text-gray-400 text-base leading-relaxed mb-4">
-          {"I'll be honest: I'm not a developer. I built Wallert piece by piece with the help of Claude."}
+          {"I'm not a developer. So I built Wallert piece by piece with the help of Claude."}
         </p>
         <p className="text-gray-400 text-base leading-relaxed">
-          {"The result isn't perfect. The interface and features can be improved. But the core of the system — detection, alert, follow-up until someone responds — works."}
+          {"The result isn't perfect. The interface and features can be improved. But the core of the system works! Detection, alert, follow-up until someone responds"}
         </p>
       </section>
 
       <section className="mb-12">
-        <h2 className="text-[#00d4aa] text-xs font-semibold tracking-widest uppercase mb-4">Help me improve it</h2>
+        <h2 className="text-[#00d4aa] text-xs font-semibold tracking-widest uppercase mb-4">Use it, improve it</h2>
         <p className="text-gray-400 text-base leading-relaxed mb-4">
           {"This project may evolve."}
         </p>
@@ -104,14 +107,14 @@ export default function About() {
         <p className="text-gray-400 text-base leading-relaxed">
           {"Every message counts. Reach out at "}
           <a href="mailto:contact@wallert.app" className="text-[#00d4aa] hover:underline">contact@wallert.app</a>
-          {" — I read everything and I reply."}
+          {". I read everything and I reply."}
         </p>
       </section>
 
       <section className="mb-12">
-        <h2 className="text-[#00d4aa] text-xs font-semibold tracking-widest uppercase mb-4">Support the project</h2>
+        <h2 className="text-[#00d4aa] text-xs font-semibold tracking-widest uppercase mb-4">Support the project if you want</h2>
         <p className="text-gray-400 text-base leading-relaxed mb-4">
-          {"Wallert is free, and I intend to keep it that way. If you find it useful and want to help cover the costs (servers, development, time), you can send code :) or a tip :):"}
+          {"Wallert is free for now. I will intend to keep it that way. If you find it useful and want to help you can send code :) or a tip :) to cover the costs (servers, development, time):"}
         </p>
         <div className="bg-[#111] border border-gray-800 rounded-lg px-4 py-3 mb-6">
           <p className="text-gray-500 text-xs uppercase tracking-wider mb-1">ETH</p>
