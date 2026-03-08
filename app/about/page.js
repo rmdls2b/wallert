@@ -32,20 +32,20 @@ export default function About() {
           {"Within seconds, a trusted circle receives an alert with your instructions, call the police, etc."}
         </p>
         <p className="text-gray-400 text-base leading-relaxed mb-4">
-          {"When I showed the concept around me, the reaction was unanimous: \"I want the same thing.\"So I turned it into something configurable and accessible to everyone."}
+          {"I showed the concept around me, and the feedback was so positive that I turned it into something configurable and accessible to everyone."}
         </p>
       </section>
 
       <section className="mb-12">
         <h2 className="text-[#00d4aa] text-xs font-semibold tracking-widest uppercase mb-4">A safety net, not a shield</h2>
         <p className="text-gray-400 text-base leading-relaxed mb-4">
-          {"Wallert doesn't prevent attacks or theft. That's not its purpose."}
+          {"Wallert doesn't prevent attacks or theft. Its purpose is to break the silence, fast."}
         </p>
         <p className="text-gray-400 text-base leading-relaxed mb-4">
-          {"Its purpose is to break the silence, fast. Will the police arrive in time? Maybe not. But without something like Wallert, no one knows you're in danger."}
+          {"Will the police arrive in time? Maybe not. But without something like Wallert, no one knows you're in danger."}
         </p>
         <p className="text-gray-400 text-base leading-relaxed">
-          {"It's a safety net. A daily peace of mind. Not a guarantee. But infinitely better than nothing."}
+          {"It's a safety net. A daily peace of mind. Not a guarantee. But better than nothing."}
         </p>
       </section>
 
@@ -75,7 +75,7 @@ export default function About() {
           <p className="text-gray-300 font-mono text-sm">{"0x..."} <span className="text-gray-600 text-xs ml-2">(coming soon)</span></p>
         </div>
         <p className="text-gray-400 text-base leading-relaxed">
-          {"Thanks. And above all — stay safe."}
+          {"Thanks. And above all, stay safe."}
         </p>
       </section>
     </div>
