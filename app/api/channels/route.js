@@ -24,6 +24,21 @@ export async function POST(request) {
       if (tgCount >= 1) return NextResponse.json({ error: "Beta limit: 1 Telegram group maximum. Self-host for unlimited." }, { status: 400 })
     }
 
+// Verify Telegram group access before creating channel
+    if (type === "telegram" && value) {
+      try {
+        const tgRes = await fetch(`https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ chat_id: value, text: "✅ Wallert Bot linked to this group. Emergency alerts will be sent here.", parse_mode: "HTML" }),
+        })
+        const tgData = await tgRes.json()
+        if (!tgData.ok) return NextResponse.json({ error: "Cannot send messages to this group. Make sure the bot is added to the group and has permission to send messages." }, { status: 400 })
+      } catch {
+        return NextResponse.json({ error: "Failed to verify Telegram group. Check the Group ID." }, { status: 400 })
+      }
+    }
+
     const channel = await prisma.alertChannel.create({ data: { userId, type, value, label: label || "" } })
 
     if (type === "email" && value) {
