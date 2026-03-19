@@ -164,7 +164,7 @@ export default function MonEspaceClient() {
       {/* Beta banner */}
       <div className="flex items-start gap-2 mb-6 px-4 py-3 bg-[#0a1a0f] border-l-2 border-[#00FF85] rounded-r-lg">
         <span className="text-[#00FF85] text-sm mt-0.5 shrink-0">ⓘ</span>
-        <p className="text-[#9A9A95] text-xs leading-relaxed">{"Wallert is in beta. Limits apply on the public instance (1 wallet, 1 email, 1 Telegram group, limited reminders). For full control with no limits, "}<a href="https://github.com/rmdls2b/wallert" className="text-[#00d4aa] hover:underline">self-host your own instance</a>.</p>
+        <p className="text-[#9A9A95] text-xs leading-relaxed">{"Wallert is in beta. Limits apply on the public instance (1 wallet, ETH network, 1 email, 1 Telegram group, limited reminders). For full control with no limits, "}<a href="https://github.com/rmdls2b/wallert" className="text-[#00d4aa] hover:underline">self-host your own instance</a>.</p>
       </div>
 
       {/* Monitored wallets */}
@@ -204,6 +204,7 @@ export default function MonEspaceClient() {
         {showAddAddress && (
           <form onSubmit={addAddress} className="mt-4 pt-4 border-t border-gray-800">
             <input type="text" required value={newAddr.address} onChange={function(e) { setNewAddr({ ...newAddr, address: e.target.value }) }} placeholder="0x..." className="w-full px-4 py-3 bg-[#0a0a0a] border border-gray-800 rounded-lg text-gray-200 text-sm outline-none focus:border-[#00d4aa]/50 transition-colors placeholder:text-gray-600 font-mono mb-2" />
+            <p className="text-xs text-gray-600 mb-2">Ethereum mainnet only.</p>
             <input type="text" value={newAddr.label} onChange={function(e) { setNewAddr({ ...newAddr, label: e.target.value }) }} placeholder="Wallet name (optional)" className="w-full px-4 py-3 bg-[#0a0a0a] border border-gray-800 rounded-lg text-gray-200 text-sm outline-none focus:border-[#00d4aa]/50 transition-colors placeholder:text-gray-600 mb-3" />
             <div className="flex gap-2">
               <button type="submit" disabled={addingAddr} className="px-4 py-2 bg-[#00d4aa] text-black rounded-lg font-bold text-sm hover:bg-[#00b892] transition-colors disabled:opacity-50">{addingAddr ? "Adding..." : "Add"}</button>
