@@ -1,11 +1,11 @@
 import "./globals.css"
 export const metadata = {
   title: "Wallert — Turn a wallet into a silent alarm.",
-  description: "Under duress, your wallet triggers an emergency alert to your trusted contacts. Open source.",
+  description: "Wallert monitors a dedicated wallet and silently alerts your trusted contacts if you're forced to transfer funds under duress. Open source.",
   metadataBase: new URL("https://wallert.app"),
   openGraph: {
     title: "Wallert — Turn a wallet into a silent alarm.",
-    description: "Under duress, your wallet triggers an emergency alert to your trusted contacts. Open source.",
+    description: "Wallert monitors a dedicated wallet and silently alerts your trusted contacts if you're forced to transfer funds under duress. Open source.",
     url: "https://wallert.app",
     siteName: "Wallert",
     images: [{ url: "/og-image.png", width: 1200, height: 630 }],
@@ -14,7 +14,7 @@ export const metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Wallert — Turn a wallet into a silent alarm.",
-    description: "Under duress, your wallet triggers an emergency alert to your trusted contacts. Open source.",
+    description: "Wallert monitors a dedicated wallet and silently alerts your trusted contacts if you're forced to transfer funds under duress. Open source.",
     images: ["/og-image.png"],
   },
 }
