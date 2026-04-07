@@ -3,70 +3,78 @@ export default function WhatIsWallert() {
     <section
       id="what-is-wallert"
       aria-labelledby="what-is-wallert-title"
-      className="border-t border-white/10 py-20 md:py-28"
+      className="border-t border-white/5"
     >
-      <div className="mx-auto max-w-3xl px-6">
-        <p className="mb-3 text-sm uppercase tracking-wider text-white/50">
+      <div className="px-6 md:px-16 lg:px-32 xl:px-40 max-w-[1400px] mx-auto py-20">
+        <p className="text-[#00FF85] text-[11px] font-semibold tracking-[3px] uppercase mb-4">
           Definition
         </p>
         <h2
           id="what-is-wallert-title"
-          className="mb-8 text-3xl font-semibold md:text-4xl"
+          className="font-display text-[clamp(26px,3.5vw,44px)] font-extrabold tracking-tight leading-[1.12] mb-8"
         >
           What is Wallert?
         </h2>
 
-        <p className="mb-6 text-lg leading-relaxed text-white/90">
-          <strong>
-            Wallert is an open-source duress alarm system for
-            cryptocurrency holders.
-          </strong>{" "}
-          It continuously monitors a dedicated decoy wallet, and the moment
-          funds are transferred under physical coercion (<em>wrench attack</em>), it instantly notifies a
-          pre-defined trusted circle by email and Telegram, with custom
-          emergency instructions.
-        </p>
+        <div className="max-w-3xl space-y-6">
+          <p className="text-[#C8C8C2] text-lg leading-relaxed">
+            <strong className="text-white">
+              Wallert is an open-source duress alarm system for
+              cryptocurrency holders.
+            </strong>{" "}
+            It continuously monitors a dedicated decoy wallet, and the moment
+            funds are transferred under physical coercion or a <em>wrench attack</em>, it instantly notifies
+            a pre-defined trusted circle by email and Telegram, with custom
+            emergency instructions.
+          </p>
 
-        <p className="mb-6 text-base leading-relaxed text-white/75">
-          Physical attacks against cryptocurrency holders are escalating
-          sharply. According to{" "}
-          <a
-            href="https://cryptocrime-dashboard.vercel.app/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline decoration-white/40 underline-offset-4 hover:decoration-white"
-          >
-            CryptoCrime.db
-          </a>
-          , a public tracker of physical attacks against crypto holders,{" "}
-          <strong>
-            311 incidents have been documented worldwide since 2014
-          </strong>
-          , with <strong>74 recorded in 2025 alone</strong>, nearly double the
-          2024 figure. <strong>France now ranks second globally</strong>,
-          behind the United States, with 43 documented incidents and a steep
-          acceleration through 2025 and 2026.
-        </p>
+          <p className="text-[#C8C8C2] text-base leading-relaxed">
+            Physical attacks against cryptocurrency holders are escalating
+            sharply. According to{" "}
+            <a
+              href="https://cryptocrime-dashboard.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#00FF85] hover:opacity-80 transition-opacity underline underline-offset-4 decoration-[#00FF85]/40"
+            >
+              CryptoCrime.db
+            </a>
+            , a public tracker of physical attacks against crypto holders,{" "}
+            <strong className="text-white">
+              311 incidents have been documented worldwide since 2014
+            </strong>
+            , with{" "}
+            <strong className="text-white">
+              74 recorded in 2025 alone
+            </strong>{" "}
+            — nearly double the 2024 figure.{" "}
+            <strong className="text-white">
+              France now ranks second globally
+            </strong>
+            , behind the United States, with 43 documented incidents and a
+            steep acceleration through 2025 and 2026.
+          </p>
 
-        <p className="mb-6 text-base leading-relaxed text-white/75">
-          Hardware wallets protect private keys against remote attackers.
-          Wallert addresses what they cannot: the moment an attacker is
-          physically present, with a weapon, demanding a transfer.
-        </p>
+          <p className="text-[#C8C8C2] text-base leading-relaxed">
+            Hardware wallets protect private keys against remote attackers.
+            Wallert addresses what they cannot: the moment an attacker is
+            physically present, with a weapon, demanding a transfer.
+          </p>
 
-        <p className="text-base leading-relaxed text-white/75">
-          Wallert is non-custodial, never touches private keys, and is
-          released under the MIT license. It can be used on the public
-          instance at{" "}
-          <a
-            href="https://wallert.app"
-            className="underline decoration-white/40 underline-offset-4 hover:decoration-white"
-          >
-            wallert.app
-          </a>{" "}
-          or self-hosted on your own infrastructure.
-        </p>
+          <p className="text-[#C8C8C2] text-base leading-relaxed">
+            Wallert never touches private keys, and is
+            released under the MIT license. It can be used on the public
+            instance at{" "}
+            <a
+              href="https://wallert.app"
+              className="text-[#00FF85] hover:opacity-80 transition-opacity underline underline-offset-4 decoration-[#00FF85]/40"
+            >
+              wallert.app
+            </a>{" "}
+            or self-hosted on your own infrastructure.
+          </p>
+        </div>
       </div>
     </section>
-  );
+  )
 }
