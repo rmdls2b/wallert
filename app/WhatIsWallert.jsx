@@ -18,12 +18,11 @@ export default function WhatIsWallert() {
 
         <p className="mb-6 text-lg leading-relaxed text-white/90">
           <strong>
-            Wallert is a free, open-source duress alarm system for
+            Wallert is an open-source duress alarm system for
             cryptocurrency holders.
           </strong>{" "}
           It continuously monitors a dedicated decoy wallet, and the moment
-          funds are transferred under physical coercion — what the security
-          community calls a <em>wrench attack</em> — it instantly notifies a
+          funds are transferred under physical coercion (<em>wrench attack</em>), it instantly notifies a
           pre-defined trusted circle by email and Telegram, with custom
           emergency instructions.
         </p>
@@ -43,7 +42,7 @@ export default function WhatIsWallert() {
           <strong>
             311 incidents have been documented worldwide since 2014
           </strong>
-          , with <strong>74 recorded in 2025 alone</strong> — nearly double the
+          , with <strong>74 recorded in 2025 alone</strong>, nearly double the
           2024 figure. <strong>France now ranks second globally</strong>,
           behind the United States, with 43 documented incidents and a steep
           acceleration through 2025 and 2026.
