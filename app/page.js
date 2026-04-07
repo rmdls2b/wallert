@@ -92,13 +92,28 @@ export default function Accueil() {
             Hardware wallets protect your keys.<br />
             Nothing protects <em>you</em>.
           </h2>
-          <p className="text-[#C8C8C2] text-base leading-relaxed max-w-xl mb-10">
-            Home invasions, forced transfers, physical attacks on crypto holders are rising. When someone has a weapon to your head, you're alone, and no one knows.
+          <p className="text-[#C8C8C2] text-base leading-relaxed max-w-2xl mb-10">
+            Physical attacks on crypto holders are rising worldwide. When someone breaks into your home and threatens you with a weapon, you have seconds to act, no way to call for help, and no one knows you're in danger.
           </p>
-          <div className="bg-gradient-to-r from-red-500/8 to-transparent border border-red-500/20 rounded-xl px-8 py-6 max-w-2xl">
-            <p className="text-white font-semibold text-lg leading-snug">The attacker sees a transfer.</p>
-            <p className="text-[#C8C8C2] text-base mt-1">Your contacts see an alarm. That gap — invisible to the threat, visible to your circle — is what Wallert creates.</p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 max-w-4xl">
+            <div className="bg-red-500/[0.05] border border-red-500/30 rounded-xl p-7">
+              <p className="font-display text-xl md:text-2xl font-bold leading-snug">
+                <span className="text-red-400">The attacker</span><br />
+                <span className="text-white">sees a transfer.</span>
+              </p>
+            </div>
+            <div className="bg-[#00FF85]/[0.04] border border-[#00FF85]/30 rounded-xl p-7">
+              <p className="font-display text-xl md:text-2xl font-bold leading-snug">
+                <span className="text-[#00FF85]">Your circle</span><br />
+                <span className="text-white">receives an alarm.</span>
+              </p>
+            </div>
           </div>
+
+          <p className="text-[#9A9A95] text-base leading-relaxed max-w-2xl">
+            Wallert exists so that, in those seconds, someone knows and can act.
+          </p>
         </div>
       </div>
 
