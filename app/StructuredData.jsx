@@ -1,16 +1,3 @@
-// app/components/StructuredData.jsx
-//
-// Server component. Renders JSON-LD structured data inline in the initial HTML
-// (server-side), which is what LLM crawlers and search engines prefer.
-//
-// Mount once in app/layout.js inside <body>, ideally near the top.
-// This covers every page of the site without per-page wiring.
-//
-// To update:
-// - Bump softwareVersion when leaving beta.
-// - Add LinkedIn / X URLs to the Person.sameAs array when Rem wants.
-// - Update logo path if /logo.png is not the canonical asset.
-
 export default function StructuredData() {
   const organization = {
     "@context": "https://schema.org",
