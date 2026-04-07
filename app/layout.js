@@ -1,5 +1,6 @@
 import "./globals.css"
 import Header from "./Header"
+import StructuredData from "./StructuredData"
 
 export const metadata = {
   title: "Wallert — Turn a wallet into a silent alarm.",
@@ -25,6 +26,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className="bg-[#0a0a0a] text-[#e0e0e0] min-h-screen grain">
+        <StructuredData />
         <Header />
         <main>
           {children}
