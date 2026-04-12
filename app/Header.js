@@ -23,8 +23,8 @@ export default function Header() {
 
   // Labels selon la langue active
   const labels = isFr
-    ? { about: "À PROPOS", account: "Mon compte", cta: "Commencer" }
-    : { about: "ABOUT", account: "My account", cta: "Get started" }
+    ? { about: "À propos", account: "Mon compte", cta: "Commencer" }
+    : { about: "About", account: "My account", cta: "Get started" }
 
   // Liens internes selon la langue active
   const aboutHref = isFr ? "/fr/about" : "/about"
