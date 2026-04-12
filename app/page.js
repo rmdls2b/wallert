@@ -15,7 +15,7 @@ export default function Accueil() {
             </div>
             <h1 className="font-serif text-[clamp(40px,5vw,60px)] font-normal leading-[1.1] text-ink-dark mb-6 tracking-tight">
               Your wallet:<br />
-              a <span className="italic text-brand-green">silent alarm</span><br />
+              a silent <span className="text-brand-green">alarm</span><br />
               under <span className="text-brand-terra">duress</span>.
             </h1>
             <p className="text-lg leading-relaxed text-ink-mid mb-10 max-w-lg">
@@ -23,7 +23,7 @@ export default function Accueil() {
             </p>
             <div className="flex flex-col sm:flex-row gap-3 items-start">
               <a href="/register" className="inline-block px-7 py-3.5 bg-brand-green text-white rounded-lg font-bold text-sm hover:bg-brand-green-dark transition-colors" style={{ boxShadow: "0 4px 14px rgba(15,166,122,0.25)" }}>Try Wallert</a>
-              <a href="#how" className="inline-block px-7 py-3.5 text-ink-light text-sm hover:text-ink-dark transition-colors">See how it works ↓</a>
+              <a href="#how" className="inline-block px-7 py-3.5 text-ink-light text-sm hover:text-ink-dark transition-colors">How it works</a>
             </div>
           </div>
           <div className="w-full max-w-[300px] lg:max-w-[320px] mx-auto lg:mx-0 shrink-0">
@@ -100,7 +100,7 @@ export default function Accueil() {
       {/* HOW IT WORKS */}
       <section id="how" className="bg-bg-soft border-t border-line-light px-6 md:px-16 lg:px-32 xl:px-40 py-20">
         <div className="max-w-[1400px] mx-auto">
-          <p className="text-brand-green text-[11px] font-semibold tracking-[3px] uppercase mb-4">Protocol</p>
+          <p className="text-brand-green text-[11px] font-semibold tracking-[3px] uppercase mb-4">How it works</p>
           <h2 className="font-serif text-[clamp(28px,3.5vw,44px)] font-normal tracking-tight leading-[1.15] mb-12 text-ink-dark">Three steps. No complexity.</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {[
