@@ -4,29 +4,31 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Geist Sans', 'sans-serif'],
+        sans: ['DM Sans', 'sans-serif'],
+        serif: ['DM Serif Display', 'serif'],
       },
       colors: {
         bg: {
           primary: '#FFFFFF',
-          cream: '#F7F6F2',
-          mint: '#F2FAF6',
+          soft: '#F7F6F2',
+          green: '#F2FAF6',
           peach: '#FFF9F6',
         },
         brand: {
           green: '#0FA67A',
-          terracotta: '#E05A38',
+          'green-dark': '#0C8A66',
+          terra: '#E05A38',
           amber: '#E8920D',
         },
         ink: {
-          title: '#1A1A17',
-          body: '#3A3A35',
-          muted: '#6B6B63',
-          faint: '#A09F95',
+          dark: '#111110',
+          mid: '#4A4A42',
+          light: '#7A7A70',
+          muted: '#A5A098',
         },
         line: {
-          DEFAULT: '#E8E6DE',
-          strong: '#D5D2C8',
+          DEFAULT: '#E2E0DB',
+          light: '#EEECE7',
         },
       },
     },
