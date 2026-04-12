@@ -1,11 +1,18 @@
 import "./globals.css"
 import Header from "./Header"
-import StructuredData from "./StructuredData"
 
 export const metadata = {
   title: "Wallert — Turn a wallet into a silent alarm.",
   description: "Wallert monitors a dedicated wallet and silently alerts your trusted contacts if you're forced to transfer funds under duress. Open source.",
   metadataBase: new URL("https://wallert.app"),
+  alternates: {
+    canonical: "/",
+    languages: {
+      "en": "/",
+      "fr": "/fr",
+      "x-default": "/",
+    },
+  },
   openGraph: {
     title: "Wallert — Turn a wallet into a silent alarm.",
     description: "Wallert monitors a dedicated wallet and silently alerts your trusted contacts if you're forced to transfer funds under duress. Open source.",
@@ -26,7 +33,6 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className="bg-[#0a0a0a] text-[#e0e0e0] min-h-screen grain">
-        <StructuredData />
         <Header />
         <main>
           {children}
