@@ -12,49 +12,49 @@ export default function Header() {
   const enHref = pathWithoutLang
   const frHref = pathWithoutLang === "/" ? "/fr" : `/fr${pathWithoutLang}`
   const labels = isFr
-    ? { about: "À PROPOS", account: "Mon compte", cta: "Commencer" }
-    : { about: "ABOUT", account: "My account", cta: "Get started" }
+    ? { about: "À propos", account: "Mon compte", cta: "Commencer" }
+    : { about: "About", account: "My account", cta: "Get started" }
   const aboutHref = isFr ? "/fr/about" : "/about"
   const homeHref = isFr ? "/fr" : "/"
 
   return (
-    <nav className="bg-bg-primary border-b border-line relative">
+    <nav className="bg-white border-b border-line-light relative">
       <div className="px-6 md:px-16 lg:px-32 xl:px-40 py-4 max-w-[1400px] mx-auto flex justify-between items-center">
-        <a href={homeHref} className="text-ink-title font-bold text-xl md:text-2xl no-underline">
+        <a href={homeHref} className="text-ink-dark font-bold text-xl md:text-2xl no-underline tracking-tight">
           Walle<span className="text-brand-green">r</span>t
         </a>
-        <div className="hidden md:flex gap-5 text-sm items-center">
-          <a href={aboutHref} className="text-ink-title no-underline hover:text-brand-green transition-colors">{labels.about}</a>
-          <a href="/my-account" className="text-ink-title border border-line-strong px-3.5 py-1.5 rounded-md no-underline font-semibold text-[13px] hover:border-ink-title transition-colors">{labels.account}</a>
-          <a href="/register" className="bg-ink-title text-white px-3.5 py-1.5 rounded-md no-underline font-semibold text-[13px] hover:opacity-90 transition-opacity">{labels.cta}</a>
-          <a href="https://github.com/rmdls2b/wallert" target="_blank" rel="noopener noreferrer" className="text-ink-muted no-underline flex items-center hover:text-ink-title transition-colors">
+        <div className="hidden md:flex gap-6 text-sm items-center">
+          <a href={aboutHref} className="text-ink-light no-underline font-medium hover:text-ink-dark transition-colors">{labels.about}</a>
+          <a href="/my-account" className="text-ink-dark border border-line px-3.5 py-1.5 rounded-md no-underline font-medium text-[13px] hover:border-line-strong transition-colors">{labels.account}</a>
+          <a href="/register" className="bg-brand-green text-white px-4 py-2 rounded-md no-underline font-semibold text-[13px] hover:bg-brand-green-dark transition-colors" style={{ boxShadow: "0 4px 14px rgba(15,166,122,0.25)" }}>{labels.cta}</a>
+          <a href="https://github.com/rmdls2b/wallert" target="_blank" rel="noopener noreferrer" className="text-ink-light no-underline flex items-center hover:text-ink-dark transition-colors">
             <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d={githubPath} /></svg>
           </a>
-          <span className="text-ink-faint text-sm flex items-center gap-2 pl-2 border-l border-line ml-1">
-            <a href={enHref} className={isFr ? "text-ink-muted hover:text-ink-title transition-colors no-underline" : "text-ink-title no-underline font-semibold"}>EN</a>
+          <span className="text-ink-muted text-sm flex items-center gap-2 pl-3 border-l border-line ml-1">
+            <a href={enHref} className={isFr ? "text-ink-light hover:text-ink-dark transition-colors no-underline" : "text-ink-dark no-underline font-semibold"}>EN</a>
             <span>|</span>
-            <a href={frHref} className={isFr ? "text-ink-title no-underline font-semibold" : "text-ink-muted hover:text-ink-title transition-colors no-underline"}>FR</a>
+            <a href={frHref} className={isFr ? "text-ink-dark no-underline font-semibold" : "text-ink-light hover:text-ink-dark transition-colors no-underline"}>FR</a>
           </span>
         </div>
         <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden flex flex-col gap-[5px] p-1 bg-transparent border-none cursor-pointer" aria-label="Menu">
-          <span className={`block w-5 h-[2px] bg-ink-title transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-[7px]" : ""}`} />
-          <span className={`block w-5 h-[2px] bg-ink-title transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`} />
-          <span className={`block w-5 h-[2px] bg-ink-title transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-[7px]" : ""}`} />
+          <span className={`block w-5 h-[2px] bg-ink-dark transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-[7px]" : ""}`} />
+          <span className={`block w-5 h-[2px] bg-ink-dark transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`} />
+          <span className={`block w-5 h-[2px] bg-ink-dark transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-[7px]" : ""}`} />
         </button>
       </div>
       {menuOpen && (
-        <div className="md:hidden border-t border-line bg-bg-primary px-6 py-4 flex flex-col gap-4">
-          <a href={aboutHref} className="text-ink-title no-underline text-sm" onClick={() => setMenuOpen(false)}>{labels.about}</a>
-          <a href="/my-account" className="text-ink-title no-underline text-sm" onClick={() => setMenuOpen(false)}>{labels.account}</a>
-          <a href="/register" className="bg-ink-title text-white px-4 py-2.5 rounded-md no-underline font-semibold text-sm text-center" onClick={() => setMenuOpen(false)}>{labels.cta}</a>
-          <a href="https://github.com/rmdls2b/wallert" target="_blank" rel="noopener noreferrer" className="text-ink-muted no-underline text-sm flex items-center gap-2" onClick={() => setMenuOpen(false)}>
+        <div className="md:hidden border-t border-line-light bg-white px-6 py-4 flex flex-col gap-4">
+          <a href={aboutHref} className="text-ink-dark no-underline text-sm font-medium" onClick={() => setMenuOpen(false)}>{labels.about}</a>
+          <a href="/my-account" className="text-ink-dark no-underline text-sm font-medium" onClick={() => setMenuOpen(false)}>{labels.account}</a>
+          <a href="/register" className="bg-brand-green text-white px-4 py-2.5 rounded-md no-underline font-semibold text-sm text-center" style={{ boxShadow: "0 4px 14px rgba(15,166,122,0.25)" }} onClick={() => setMenuOpen(false)}>{labels.cta}</a>
+          <a href="https://github.com/rmdls2b/wallert" target="_blank" rel="noopener noreferrer" className="text-ink-light no-underline text-sm flex items-center gap-2" onClick={() => setMenuOpen(false)}>
             <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d={githubPath} /></svg>
             GitHub
           </a>
-          <div className="border-t border-line pt-4 mt-2 flex items-center gap-3 text-sm">
-            <a href={enHref} className={isFr ? "text-ink-muted no-underline" : "text-ink-title no-underline font-semibold"} onClick={() => setMenuOpen(false)}>EN</a>
-            <span className="text-ink-faint">|</span>
-            <a href={frHref} className={isFr ? "text-ink-title no-underline font-semibold" : "text-ink-muted no-underline"} onClick={() => setMenuOpen(false)}>FR</a>
+          <div className="border-t border-line-light pt-4 mt-2 flex items-center gap-3 text-sm">
+            <a href={enHref} className={isFr ? "text-ink-light no-underline" : "text-ink-dark no-underline font-semibold"} onClick={() => setMenuOpen(false)}>EN</a>
+            <span className="text-ink-muted">|</span>
+            <a href={frHref} className={isFr ? "text-ink-dark no-underline font-semibold" : "text-ink-light no-underline"} onClick={() => setMenuOpen(false)}>FR</a>
           </div>
         </div>
       )}
