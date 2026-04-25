@@ -13,5 +13,24 @@ const nextConfig = {
       },
     ]
   },
+  async redirects() {
+    return [
+      {
+        source: "/fr/login",
+        destination: "/login",
+        permanent: false,
+      },
+      {
+        source: "/fr/register",
+        destination: "/register",
+        permanent: false,
+      },
+      {
+        source: "/fr/my-account",
+        destination: "/my-account",
+        permanent: false,
+      },
+    ]
+  },
 }
 module.exports = nextConfig
