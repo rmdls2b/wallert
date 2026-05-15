@@ -53,7 +53,7 @@ export default function AboutFr() {
       </section>
 
       <section className="mb-12">
-        <h2 className="text-[#0FA67A] text-xs font-semibold tracking-widest uppercase mb-4">{"Construit avec Claude (je ne suis pas développeur)"}</h2>
+        <h2 className="text-[#0FA67A] text-xs font-semibold tracking-widest uppercase mb-4">{"Beta mode"}</h2>
         <p className="text-gray-400 text-base leading-relaxed mb-4">
           {"C'est une beta, l'interface et les fonctionnalités vont continuer à évoluer. Mais le cœur fonctionne : détection, alerte, relance jusqu'à ce que quelqu'un réponde."}
         </p>
@@ -70,13 +70,6 @@ export default function AboutFr() {
           <a href="mailto:contact@wallert.app" className="text-[#0FA67A] hover:underline">contact@wallert.app</a>
           {". Je lis tout et je réponds."}
         </p>
-        <p className="text-gray-400 text-base leading-relaxed mb-4">
-          {"Si vous voulez soutenir le projet, un tip ou une pull request, les deux comptent :"}
-        </p>
-        <div className="bg-[#111] border border-gray-800 rounded-lg px-4 py-3 mb-6">
-          <p className="text-gray-500 text-xs uppercase tracking-wider mb-1">ETH</p>
-          <p className="text-gray-300 font-mono text-sm">{"0x..."} <span className="text-gray-600 text-xs ml-2">(bientôt)</span></p>
-        </div>
         <p className="text-gray-400 text-base leading-relaxed">
           {"Merci. Et surtout, restez en sécurité."}
         </p>
