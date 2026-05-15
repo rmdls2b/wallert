@@ -70,13 +70,6 @@ export default function About() {
           <a href="mailto:contact@wallert.app" className="text-[#0FA67A] hover:underline">contact@wallert.app</a>
           {". I read everything and I reply."}
         </p>
-        <p className="text-gray-400 text-base leading-relaxed mb-4">
-          {"If you want to support the project — a tip or a pull request, both count:"}
-        </p>
-        <div className="bg-[#111] border border-gray-800 rounded-lg px-4 py-3 mb-6">
-          <p className="text-gray-500 text-xs uppercase tracking-wider mb-1">ETH</p>
-          <p className="text-gray-300 font-mono text-sm">{"0x..."} <span className="text-gray-600 text-xs ml-2">(coming soon)</span></p>
-        </div>
         <p className="text-gray-400 text-base leading-relaxed">
           {"Thanks. And above all, stay safe."}
         </p>
