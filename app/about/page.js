@@ -53,7 +53,7 @@ export default function About() {
       </section>
 
       <section className="mb-12">
-        <h2 className="text-[#0FA67A] text-xs font-semibold tracking-widest uppercase mb-4">{"Built with Claude (I'm not a developer)"}</h2>
+        <h2 className="text-[#0FA67A] text-xs font-semibold tracking-widest uppercase mb-4">{"Beta mode"}</h2>
         <p className="text-gray-400 text-base leading-relaxed mb-4">
           {"It's a beta, the interface and features will keep improving. But the core works: detection, alert, follow-up until someone responds."}
         </p>
