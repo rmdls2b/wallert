@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client"
 import { NextResponse } from "next/server"
 import { getUserFromRequest } from "../../lib/security"
+import { PROTECTION_DELAY_MS, ACCOUNT_DELETION_DELAY_MS } from "../../lib/protection"
 
 const prisma = new PrismaClient()
 
@@ -17,8 +18,20 @@ export async function GET(request) {
       },
     })
     if (!user) return NextResponse.json({ error: "User not found" }, { status: 404 })
-    const { password, ...safeUser } = user
-    return NextResponse.json({ user: safeUser, addresses: user.addresses, channels: user.channels })
+    // Never expose secrets: verification tokens must only travel through the
+    // verified inbox, otherwise a user could "verify" any contact themselves.
+    const { password, emailVerifyToken, addresses, channels, ...safeUser } = user
+    const effective = (at, delay) => (at ? new Date(at.getTime() + delay) : null)
+    const safeChannels = channels.map(({ verifyToken, ...channel }) => ({
+      ...channel,
+      pendingEffectiveAt: effective(channel.pendingActionAt, PROTECTION_DELAY_MS),
+    }))
+    const safeAddresses = addresses.map(addr => ({
+      ...addr,
+      pendingEffectiveAt: effective(addr.pendingActionAt, PROTECTION_DELAY_MS),
+    }))
+    safeUser.deletionEffectiveAt = effective(user.deletionRequestedAt, ACCOUNT_DELETION_DELAY_MS)
+    return NextResponse.json({ user: safeUser, addresses: safeAddresses, channels: safeChannels })
   } catch (error) {
     console.error("My-account error:", error)
     return NextResponse.json({ error: "An error occurred" }, { status: 500 })

@@ -27,6 +27,15 @@ export default function MonEspaceClient() {
   const [newTelegramGroupId, setNewTelegramGroupId] = useState("")
   const [addingTelegram, setAddingTelegram] = useState(false)
 
+  function formatWhen(iso) {
+    if (!iso) return ""
+    return new Date(iso).toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" })
+  }
+
+  function notifyPending(json) {
+    if (json && json.pending) alert("For your safety, this change takes effect in 24 hours. Your trusted contacts have been notified, and monitoring stays active until then. You can cancel it at any time.")
+  }
+
   function authHeaders() {
     return { "Content-Type": "application/json", "Authorization": "Bearer " + token }
   }
@@ -94,13 +103,15 @@ export default function MonEspaceClient() {
   }
 
   async function toggleChannel(id, active) {
-    await fetch("/api/channels", { method: "PATCH", headers: authHeaders(), body: JSON.stringify({ id, isActive: active }) })
+    const res = await fetch("/api/channels", { method: "PATCH", headers: authHeaders(), body: JSON.stringify({ id, isActive: active }) })
+    if (res.ok) notifyPending(await res.json())
     loadData(token)
   }
 
   async function removeChannel(id) {
-    await fetch("/api/channels?id=" + id, { method: "DELETE", headers: authHeaders() })
+    const res = await fetch("/api/channels?id=" + id, { method: "DELETE", headers: authHeaders() })
     setConfirmDeleteChannel(null)
+    if (res.ok) notifyPending(await res.json())
     loadData(token)
   }
 
@@ -111,13 +122,15 @@ export default function MonEspaceClient() {
   }
 
   async function toggleAddress(id) {
-    await fetch("/api/addresses/toggle", { method: "POST", headers: authHeaders(), body: JSON.stringify({ id }) })
+    const res = await fetch("/api/addresses/toggle", { method: "POST", headers: authHeaders(), body: JSON.stringify({ id }) })
+    if (res.ok) notifyPending(await res.json())
     loadData(token)
   }
 
   async function deleteAddress(id) {
-    await fetch("/api/addresses?id=" + id, { method: "DELETE", headers: authHeaders() })
+    const res = await fetch("/api/addresses?id=" + id, { method: "DELETE", headers: authHeaders() })
     setConfirmDeleteAddr(null)
+    if (res.ok) notifyPending(await res.json())
     loadData(token)
   }
 
@@ -134,9 +147,15 @@ export default function MonEspaceClient() {
   }
 
   async function deleteAccount() {
-    await fetch("/api/delete-account", { method: "POST", headers: authHeaders() })
-    localStorage.removeItem("wallert_token")
-    window.location.href = "/"
+    const res = await fetch("/api/delete-account", { method: "POST", headers: authHeaders() })
+    setConfirmDelete(false)
+    if (res.ok) alert("Your account will be deleted in 72 hours. Your trusted contacts have been notified, and monitoring stays active until then. You can cancel it at any time from this page.")
+    loadData(token)
+  }
+
+  async function cancelAccountDeletion() {
+    await fetch("/api/delete-account", { method: "PATCH", headers: authHeaders() })
+    loadData(token)
   }
 
   function logout() {
@@ -178,8 +197,14 @@ export default function MonEspaceClient() {
               <div className="flex-1 min-w-0">
                 <span className="font-mono text-xs text-gray-300">{addr.address.slice(0, 14)}...{addr.address.slice(-8)}</span>
                 {addr.label && <span className="text-gray-400 text-xs ml-2">({addr.label})</span>}
+                {addr.pendingAction && (
+                  <p className="text-xs text-yellow-500 mt-1">{addr.pendingAction === "delete" ? "Removal" : "Disabling"} scheduled for {formatWhen(addr.pendingEffectiveAt)}. Still monitored until then.</p>
+                )}
               </div>
               <div className="flex gap-2 shrink-0">
+                {addr.pendingAction ? (
+                  <button onClick={function() { toggleAddress(addr.id) }} className="px-3 py-1 text-xs rounded-lg border border-[#00d4aa]/30 text-[#00d4aa] hover:border-[#00d4aa]/50 transition-colors">Cancel</button>
+                ) : (<>
                 <button onClick={function() { toggleAddress(addr.id) }} className={"px-3 py-1 text-xs rounded-lg border transition-colors " + (addr.isActive ? "border-yellow-500/30 text-yellow-500 hover:border-yellow-500/50" : "border-[#00d4aa]/30 text-[#00d4aa] hover:border-[#00d4aa]/50")}>
                   {addr.isActive ? "Disable" : "Enable"}
                 </button>
@@ -191,6 +216,7 @@ export default function MonEspaceClient() {
                 ) : (
                   <button onClick={function() { setConfirmDeleteAddr(addr.id) }} className="px-3 py-1 text-xs rounded-lg border border-red-500/30 text-red-400 hover:border-red-500/50 transition-colors">Delete</button>
                 )}
+                </>)}
               </div>
             </div>
           )
@@ -231,7 +257,13 @@ export default function MonEspaceClient() {
               <span className={"text-sm flex-1 " + (ch.isActive ? "text-gray-300" : "text-gray-400")}>
                 {displayValue}
                 {ch.label && <span className="text-gray-400 ml-1">— {ch.label}</span>}
+                {ch.pendingAction && (
+                  <span className="block text-xs text-yellow-500 mt-1">{ch.pendingAction === "delete" ? "Removal" : "Disabling"} scheduled for {formatWhen(ch.pendingEffectiveAt)}. Still active until then.</span>
+                )}
               </span>
+              {ch.pendingAction ? (
+                <button onClick={function() { toggleChannel(ch.id, true) }} className="px-3 py-1 text-xs rounded-lg border border-[#00d4aa]/30 text-[#00d4aa] hover:border-[#00d4aa]/50 transition-colors">Cancel</button>
+              ) : (<>
               <button onClick={function() { toggleChannel(ch.id, !ch.isActive) }} className={"px-3 py-1 text-xs rounded-lg border transition-colors " + (ch.isActive ? "border-yellow-500/30 text-yellow-500 hover:border-yellow-500/50" : "border-[#00d4aa]/30 text-[#00d4aa] hover:border-[#00d4aa]/50")}>
                 {ch.isActive ? "Disable" : "Enable"}
               </button>
@@ -243,6 +275,7 @@ export default function MonEspaceClient() {
               ) : (
                 <button onClick={function() { setConfirmDeleteChannel(ch.id) }} className="px-3 py-1 text-xs rounded-lg border border-red-500/30 text-red-400 hover:border-red-500/50 transition-colors">Delete</button>
               )}
+              </>)}
             </div>
           )
         })}
@@ -333,11 +366,16 @@ export default function MonEspaceClient() {
 
       {/* Delete account */}
       <div className="mt-8 pt-8 border-t border-gray-800">
-        {!confirmDelete ? (
+        {user.deletionRequestedAt ? (
+          <div className="bg-red-500/5 border border-red-500/20 rounded-xl p-5">
+            <p className="text-red-300 text-sm mb-4">Your account is scheduled for deletion on {formatWhen(user.deletionEffectiveAt)}. Monitoring stays active until then.</p>
+            <button onClick={cancelAccountDeletion} className="px-4 py-2 text-sm border border-[#00d4aa]/30 text-[#00d4aa] rounded-lg hover:border-[#00d4aa]/50 transition-colors">Cancel deletion</button>
+          </div>
+        ) : !confirmDelete ? (
           <button onClick={function() { setConfirmDelete(true) }} className="px-5 py-2.5 text-sm border border-red-500/30 text-red-400 rounded-lg hover:border-red-500/50 hover:bg-red-500/5 transition-colors">Delete my account</button>
         ) : (
           <div className="bg-red-500/5 border border-red-500/20 rounded-xl p-5">
-            <p className="text-red-300 text-sm mb-4">Are you sure? This action is irreversible.</p>
+            <p className="text-red-300 text-sm mb-4">Are you sure? For your safety, your account will be deleted after 72 hours and your trusted contacts will be notified now. Deletion is irreversible once the delay has passed.</p>
             <div className="flex gap-2">
               <button onClick={deleteAccount} className="px-4 py-2 bg-red-500 text-white rounded-lg font-bold text-sm">Yes, delete</button>
               <button onClick={function() { setConfirmDelete(false) }} className="px-4 py-2 text-sm border border-gray-800 text-gray-400 rounded-lg hover:border-gray-600 transition-colors">Cancel</button>

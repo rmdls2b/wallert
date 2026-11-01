@@ -2,6 +2,7 @@ import { PrismaClient } from "@prisma/client"
 import { NextResponse } from "next/server"
 import { Resend } from "resend"
 import { getUserFromRequest } from "../../lib/security"
+import { PROTECTION_DELAY_MS, notifyProtectionChange, channelDelivers } from "../../lib/protection"
 
 const prisma = new PrismaClient()
 const resend = new Resend(process.env.RESEND_API_KEY)
@@ -61,19 +62,44 @@ export async function POST(request) {
   }
 }
 
+function describeChannel(channel) {
+  return channel.type === "email" ? "the email contact " + channel.value : "the Telegram group" + (channel.label ? " \"" + channel.label + "\"" : "")
+}
+
+// Delay an action that would stop a working channel from receiving alerts.
+async function requestChannelChange(userId, channel, action) {
+  const now = new Date()
+  await prisma.alertChannel.update({ where: { id: channel.id }, data: { pendingAction: action, pendingActionAt: now } })
+  const effectiveAt = new Date(now.getTime() + PROTECTION_DELAY_MS)
+  const verb = action === "delete" ? "removed" : "disabled"
+  await notifyProtectionChange(userId, prisma, "Alerts to " + describeChannel(channel) + " will be " + verb + ".", effectiveAt)
+  return NextResponse.json({ ok: true, pending: true, effectiveAt })
+}
+
 export async function PATCH(request) {
   try {
     const userId = getUserFromRequest(request)
     if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
 
     const { id, isActive } = await request.json()
+    if (typeof id !== "string" || typeof isActive !== "boolean") return NextResponse.json({ error: "Invalid request" }, { status: 400 })
     const channel = await prisma.alertChannel.findUnique({ where: { id } })
     if (!channel || channel.userId !== userId) return NextResponse.json({ error: "Not found" }, { status: 404 })
 
-    await prisma.alertChannel.update({ where: { id }, data: { isActive } })
+    // Enabling (or cancelling a pending disable/delete) is immediate.
+    if (isActive) {
+      await prisma.alertChannel.update({ where: { id }, data: { isActive: true, pendingAction: null, pendingActionAt: null } })
+      return NextResponse.json({ ok: true })
+    }
+
+    if (channel.pendingAction) return NextResponse.json({ ok: true, pending: true })
+    if (channelDelivers(channel)) return requestChannelChange(userId, channel, "disable")
+
+    await prisma.alertChannel.update({ where: { id }, data: { isActive: false } })
     return NextResponse.json({ ok: true })
   } catch (error) {
-    return NextResponse.json({ error: "Error: " + error.message }, { status: 500 })
+    console.error("Channel update error:", error)
+    return NextResponse.json({ error: "An error occurred" }, { status: 500 })
   }
 }
 
@@ -84,12 +110,18 @@ export async function DELETE(request) {
 
     const { searchParams } = new URL(request.url)
     const id = searchParams.get("id")
+    if (!id) return NextResponse.json({ error: "Missing id" }, { status: 400 })
     const channel = await prisma.alertChannel.findUnique({ where: { id } })
     if (!channel || channel.userId !== userId) return NextResponse.json({ error: "Not found" }, { status: 404 })
 
+    if (channel.pendingAction === "delete") return NextResponse.json({ ok: true, pending: true })
+    if (channelDelivers(channel)) return requestChannelChange(userId, channel, "delete")
+
+    // The channel cannot deliver anything (inactive, unverified or unlinked): delete now.
     await prisma.alertChannel.delete({ where: { id } })
     return NextResponse.json({ ok: true })
   } catch (error) {
-    return NextResponse.json({ error: "Error: " + error.message }, { status: 500 })
+    console.error("Channel delete error:", error)
+    return NextResponse.json({ error: "An error occurred" }, { status: 500 })
   }
 }

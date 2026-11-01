@@ -2,39 +2,12 @@ import { PrismaClient } from "@prisma/client"
 import { NextResponse } from "next/server"
 import { Resend } from "resend"
 import { getUserFromRequest, createRateLimiter } from "../../lib/security"
+import { ACCOUNT_DELETION_DELAY_MS, notifyProtectionChange } from "../../lib/protection"
 
 const prisma = new PrismaClient()
 const resend = new Resend(process.env.RESEND_API_KEY)
 const deleteLimiter = createRateLimiter(3, 60 * 60 * 1000)
 const APP_URL = process.env.APP_URL || "https://wallert.app"
-
-async function removeAddressFromAlchemy(address) {
-  await fetch("https://dashboard.alchemy.com/api/update-webhook-addresses", {
-    method: "PATCH",
-    headers: { "Content-Type": "application/json", "X-Alchemy-Token": process.env.ALCHEMY_API_KEY },
-    body: JSON.stringify({ webhook_id: process.env.ALCHEMY_WEBHOOK_ID, addresses_to_add: [], addresses_to_remove: [address] }),
-  })
-}
-
-async function executeDelete(userId) {
-  const user = await prisma.user.findUnique({ where: { id: userId }, include: { addresses: true, channels: true } })
-  if (!user) return
-  for (const addr of user.addresses) {
-    const remaining = await prisma.watchedAddress.count({ where: { address: addr.address, isActive: true, NOT: { id: addr.id } } })
-    await prisma.alert.deleteMany({ where: { addressId: addr.id } })
-    if (remaining === 0) await removeAddressFromAlchemy(addr.address)
-  }
-  await prisma.watchedAddress.deleteMany({ where: { userId } })
-  await prisma.alertChannel.deleteMany({ where: { userId } })
-  await prisma.passwordReset.deleteMany({ where: { userId } })
-  await prisma.user.delete({ where: { id: userId } })
-  await resend.emails.send({
-    from: "Wallert <" + (process.env.ALERT_FROM_EMAIL || "onboarding@resend.dev") + ">",
-    to: user.email,
-    subject: "Your Wallert account has been deleted",
-    html: `<div style="font-family:Arial,Helvetica,sans-serif;max-width:520px;margin:0 auto;background:#ffffff;border:1px solid #e0e0e0;border-radius:12px;overflow:hidden;"><div style="background:#666;padding:20px 32px;text-align:center;"><span style="color:#fff;font-size:11px;font-weight:bold;letter-spacing:3px;text-transform:uppercase;">Account deleted</span></div><div style="padding:32px;"><p style="color:#333;font-size:14px;line-height:1.6;margin:0 0 20px 0;">Your Wallert account and all your monitored addresses have been deleted.</p><p style="color:#333;font-size:14px;line-height:1.6;margin:0 0 20px 0;">If you didn't initiate this action, please contact us immediately at <a href="mailto:contact@wallert.app">contact@wallert.app</a>.</p></div><div style="border-top:1px solid #eee;padding:16px 32px;text-align:center;"><p style="color:#ccc;font-size:10px;margin:0;">Wallert</p></div></div>`,
-  })
-}
 
 // POST: request deletion
 export async function POST(request) {
@@ -67,11 +40,20 @@ export async function POST(request) {
 
       return NextResponse.json({ ok: true, delayed: true })
     } else {
-      // Self-deletion: immediate
+      // Self-deletion: delayed like admin deletion, so it cannot be used to silence
+      // the alarm under duress. The trusted circle is notified right away.
       const userId = getUserFromRequest(request)
       if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
-      await executeDelete(userId)
-      return NextResponse.json({ ok: true })
+      const user = await prisma.user.findUnique({ where: { id: userId } })
+      if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+      if (user.deletionRequestedAt) {
+        return NextResponse.json({ ok: true, delayed: true, effectiveAt: new Date(user.deletionRequestedAt.getTime() + ACCOUNT_DELETION_DELAY_MS) })
+      }
+      const now = new Date()
+      await prisma.user.update({ where: { id: userId }, data: { deletionRequestedAt: now } })
+      const effectiveAt = new Date(now.getTime() + ACCOUNT_DELETION_DELAY_MS)
+      await notifyProtectionChange(userId, prisma, "The Wallert account will be deleted and all monitoring will stop.", effectiveAt)
+      return NextResponse.json({ ok: true, delayed: true, effectiveAt })
     }
   } catch (error) {
     console.error("Delete account error:", error)
@@ -79,12 +61,15 @@ export async function POST(request) {
   }
 }
 
-// PATCH: cancel pending deletion (admin only)
+// PATCH: cancel pending deletion (admin, or the user for their own account)
 export async function PATCH(request) {
   try {
     const authHeader = request.headers.get("authorization")
     if (authHeader !== process.env.DASHBOARD_PASSWORD) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+      const ownId = getUserFromRequest(request)
+      if (!ownId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+      await prisma.user.update({ where: { id: ownId }, data: { deletionRequestedAt: null } })
+      return NextResponse.json({ ok: true })
     }
 
     const { userId } = await request.json()

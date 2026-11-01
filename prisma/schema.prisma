@@ -39,6 +39,8 @@ model WatchedAddress {
   chain     String   @default("ethereum")
   label     String   @default("")
   isActive  Boolean  @default(true)
+  pendingAction   String?
+  pendingActionAt DateTime?
   createdAt DateTime @default(now())
   user      User     @relation(fields: [userId], references: [id])
   alerts    Alert[]
@@ -54,6 +56,8 @@ model AlertChannel {
   linkToken      String?   @unique @default(uuid())
   linkTokenUsed  Boolean   @default(false)
   isActive  Boolean  @default(true)
+  pendingAction   String?
+  pendingActionAt DateTime?
   label     String   @default("")
   createdAt DateTime @default(now())
   user      User     @relation(fields: [userId], references: [id])

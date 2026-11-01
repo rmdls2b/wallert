@@ -2,6 +2,7 @@ import { PrismaClient } from "@prisma/client"
 import { Resend } from "resend"
 import { NextResponse } from "next/server"
 import { escapeHtml, checkEmailLimit } from "../../lib/security"
+import { applyDuePendingActions, ACCOUNT_DELETION_DELAY_MS } from "../../lib/protection"
 
 export const dynamic = 'force-dynamic'
 export const fetchCache = 'force-no-store'
@@ -107,8 +108,12 @@ export async function GET(request) {
       data: { status: "expired" },
     })
 
-    // Process pending admin deletions (72h delay)
-    const deletionCutoff = new Date(Date.now() - 72 * 60 * 60 * 1000)
+    // Apply delayed disable/delete requests on wallets and channels
+    const applied = await applyDuePendingActions(prisma)
+    if (applied.addresses || applied.channels) console.log("Applied pending actions:", JSON.stringify(applied))
+
+    // Process pending account deletions (user or admin, delayed)
+    const deletionCutoff = new Date(Date.now() - ACCOUNT_DELETION_DELAY_MS)
     const pendingDeletions = await prisma.user.findMany({
       where: { deletionRequestedAt: { lt: deletionCutoff, not: null } },
       include: { addresses: true },

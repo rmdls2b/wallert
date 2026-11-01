@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client"
 import { NextResponse } from "next/server"
 import { getUserFromRequest } from "../../lib/security"
+import { PROTECTION_DELAY_MS, notifyProtectionChange, shortAddress } from "../../lib/protection"
 
 const prisma = new PrismaClient()
 
@@ -46,9 +47,22 @@ export async function DELETE(request) {
 
     const { searchParams } = new URL(request.url)
     const id = searchParams.get("id")
+    if (!id) return NextResponse.json({ error: "Missing id" }, { status: 400 })
     const addr = await prisma.watchedAddress.findUnique({ where: { id } })
     if (!addr || addr.userId !== userId) return NextResponse.json({ error: "Not found" }, { status: 404 })
 
+    // An active wallet is only removed after the protection delay, and the
+    // trusted circle is notified now. Monitoring continues in the meantime.
+    if (addr.isActive) {
+      if (addr.pendingAction === "delete") return NextResponse.json({ ok: true, pending: true })
+      const now = new Date()
+      await prisma.watchedAddress.update({ where: { id }, data: { pendingAction: "delete", pendingActionAt: now } })
+      const effectiveAt = new Date(now.getTime() + PROTECTION_DELAY_MS)
+      await notifyProtectionChange(userId, prisma, "Wallet " + shortAddress(addr.address) + " will be removed from monitoring.", effectiveAt)
+      return NextResponse.json({ ok: true, pending: true, effectiveAt })
+    }
+
+    // Already inactive: nothing is being monitored, delete right away.
     await prisma.alert.deleteMany({ where: { addressId: id } })
     await prisma.watchedAddress.delete({ where: { id } })
     const remaining = await prisma.watchedAddress.count({ where: { address: addr.address, isActive: true } })
