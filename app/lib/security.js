@@ -53,6 +53,9 @@ export function createRateLimiter(maxAttempts, windowMs) {
 
   return {
     check(key) {
+      // No reliable client IP: skip rather than put every visitor in one shared
+      // bucket, which would let a few failures lock everybody out.
+      if (!key) return true
       const store = stores.get(id)
       const now = Date.now()
       const record = store.get(key)
@@ -105,8 +108,16 @@ export function checkEmailLimit(userId) {
 // (e.g. "x-real-ip" with `proxy_set_header X-Real-IP $remote_addr;` in Nginx).
 const CLIENT_IP_HEADER = (process.env.CLIENT_IP_HEADER || "cf-connecting-ip").toLowerCase()
 
+let missingIpWarned = false
+
+// Returns null when the header is missing (see createRateLimiter.check).
 export function getClientIp(request) {
-  return request.headers.get(CLIENT_IP_HEADER) || "unknown"
+  const ip = request.headers.get(CLIENT_IP_HEADER)
+  if (!ip && !missingIpWarned) {
+    missingIpWarned = true
+    console.warn("Rate limiting: header " + CLIENT_IP_HEADER + " missing, per-IP limits are skipped. Set CLIENT_IP_HEADER.")
+  }
+  return ip || null
 }
 
 // Admin authentication: constant-time comparison + lockout after repeated failures.
@@ -129,7 +140,9 @@ function safeEqual(a, b) {
 
 // Returns { ok: true } or { ok: false, status } (401 wrong password, 429 locked out).
 export function verifyAdminPassword(request, password) {
-  const ip = getClientIp(request)
+  // Without a client IP, admin failures share one bucket: that can only lock
+  // out the admin dashboard, never regular users.
+  const ip = getClientIp(request) || "unknown"
   const now = Date.now()
   let record = adminFailures.get(ip)
   if (record && now - record.start > ADMIN_LOCKOUT_MS) {
