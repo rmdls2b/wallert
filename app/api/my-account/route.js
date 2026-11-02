@@ -17,8 +17,11 @@ export async function GET(request) {
       },
     })
     if (!user) return NextResponse.json({ error: "User not found" }, { status: 404 })
-    const { password, ...safeUser } = user
-    return NextResponse.json({ user: safeUser, addresses: user.addresses, channels: user.channels })
+    // Never return verification tokens: they must only reach the inbox being
+    // verified, otherwise a user could mark any third-party email as verified.
+    const { password, emailVerifyToken, addresses, channels, ...safeUser } = user
+    const safeChannels = channels.map(({ verifyToken, ...channel }) => channel)
+    return NextResponse.json({ user: safeUser, addresses, channels: safeChannels })
   } catch (error) {
     console.error("My-account error:", error)
     return NextResponse.json({ error: "An error occurred" }, { status: 500 })

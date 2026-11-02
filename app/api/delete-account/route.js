@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client"
 import { NextResponse } from "next/server"
 import { Resend } from "resend"
-import { getUserFromRequest, createRateLimiter } from "../../lib/security"
+import { getUserFromRequest, createRateLimiter, getClientIp, verifyAdminPassword, adminErrorResponse } from "../../lib/security"
 
 const prisma = new PrismaClient()
 const resend = new Resend(process.env.RESEND_API_KEY)
@@ -39,15 +39,17 @@ async function executeDelete(userId) {
 // POST: request deletion
 export async function POST(request) {
   try {
-    const ip = request.headers.get("x-forwarded-for") || request.headers.get("x-real-ip") || "unknown"
+    const ip = getClientIp(request)
     if (!deleteLimiter.check(ip)) {
       return NextResponse.json({ error: "Too many attempts. Please try again later." }, { status: 429 })
     }
 
     const authHeader = request.headers.get("authorization")
-    const isAdmin = authHeader === process.env.DASHBOARD_PASSWORD
-
-    if (isAdmin) {
+    // Users send "Bearer <jwt>"; anything else is an admin password attempt.
+    const isAdminAttempt = !!authHeader && !authHeader.startsWith("Bearer ")
+    if (isAdminAttempt) {
+      const auth = verifyAdminPassword(request, authHeader)
+      if (!auth.ok) return adminErrorResponse(auth)
       // Admin: 72h delayed deletion
       const { userId } = await request.json()
       if (!userId) return NextResponse.json({ error: "Missing userId" }, { status: 400 })
@@ -83,9 +85,8 @@ export async function POST(request) {
 export async function PATCH(request) {
   try {
     const authHeader = request.headers.get("authorization")
-    if (authHeader !== process.env.DASHBOARD_PASSWORD) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
-    }
+    const auth = verifyAdminPassword(request, authHeader)
+    if (!auth.ok) return adminErrorResponse(auth)
 
     const { userId } = await request.json()
     if (!userId) return NextResponse.json({ error: "Missing userId" }, { status: 400 })

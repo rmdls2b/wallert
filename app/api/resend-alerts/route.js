@@ -13,6 +13,11 @@ const MAX_RESEND_REAL = 12
 const MAX_RESEND_TEST = 3
 const APP_URL = process.env.APP_URL || "https://wallert.app"
 
+// Only a well-formed transaction hash goes into the Etherscan link.
+function explorerLink(txHash) {
+  return /^0x[0-9a-fA-F]{64}$/.test(txHash || "") ? "https://etherscan.io/tx/" + txHash : ""
+}
+
 function alertEmailHtml({ shortFrom, shortTo, value, asset, explorerUrl, ackUrl, instructionsHtml, badge, testBanner, pseudonymLabel }) {
   return `<div style="font-family:Arial,Helvetica,sans-serif;max-width:520px;margin:0 auto;background:#ffffff;border:1px solid #e0e0e0;border-radius:12px;overflow:hidden;"><div style="background:#ff4444;padding:20px 32px;text-align:center;"><span style="color:#fff;font-size:11px;font-weight:bold;letter-spacing:3px;text-transform:uppercase;">${badge}</span></div><div style="padding:32px;">${testBanner ? '<div style="background:#fff8e6;border:1px solid #ffe0a0;border-radius:6px;padding:10px;margin-bottom:24px;text-align:center;"><span style="color:#b8860b;font-size:12px;font-weight:bold;">THIS IS A TEST — NOT A REAL ALERT</span></div>' : ''}${pseudonymLabel ? '<p style="color:#333;font-size:16px;text-align:center;font-weight:bold;margin:0 0 8px 0;">Alert from ' + escapeHtml(pseudonymLabel) + '</p>' : ''}<p style="color:#cc0000;font-size:14px;text-align:center;font-weight:bold;margin:0 0 28px 0;">You are receiving this email because you are designated as an emergency contact.</p><div style="background:#fafafa;border:1px solid #eee;border-radius:8px;padding:20px;margin-bottom:24px;"><table style="width:100%;border-collapse:collapse;"><tr><td style="padding:8px 0;color:#999;font-size:12px;text-transform:uppercase;letter-spacing:1px;">Amount</td><td style="padding:8px 0;text-align:right;color:#cc0000;font-size:15px;font-weight:bold;">${value} ${asset}</td></tr><tr><td colspan="2" style="border-bottom:1px solid #eee;"></td></tr><tr><td style="padding:8px 0;color:#999;font-size:12px;text-transform:uppercase;letter-spacing:1px;">From</td><td style="padding:8px 0;text-align:right;color:#333;font-family:monospace;font-size:12px;">${shortFrom}</td></tr><tr><td colspan="2" style="border-bottom:1px solid #eee;"></td></tr><tr><td style="padding:8px 0;color:#999;font-size:12px;text-transform:uppercase;letter-spacing:1px;">To</td><td style="padding:8px 0;text-align:right;color:#333;font-family:monospace;font-size:12px;">${shortTo}</td></tr></table>${explorerUrl ? '<div style="text-align:center;margin-top:16px;padding-top:12px;border-top:1px solid #eee;"><a href="' + explorerUrl + '" style="color:#999;font-size:11px;text-decoration:underline;">View on Etherscan</a></div>' : ''}</div>${ackUrl ? '<div style="text-align:center;margin-bottom:8px;"><a href="' + ackUrl + '" style="display:inline-block;background:#00b892;color:#fff;padding:14px 40px;border-radius:8px;text-decoration:none;font-weight:bold;font-size:14px;">Confirm receipt</a></div><p style="color:#aaa;font-size:11px;text-align:center;margin:0 0 28px 0;">Alerts resent every 5 min to all emergency contacts until confirmed</p>' : ''}${instructionsHtml}</div><div style="border-top:1px solid #eee;padding:16px 32px;text-align:center;"><p style="color:#ccc;font-size:10px;margin:0;">Wallert</p></div></div>`
 }
@@ -56,11 +61,13 @@ export async function GET(request) {
       const pseudonymLabel = user.pseudonym || ""
       const count = alert.resendCount + 1
       const shortFrom = alert.fromAddr.slice(0, 8) + "..." + alert.fromAddr.slice(-6)
-      const shortTo = alert.toAddr.slice(0, 8) + "..." + alert.toAddr.slice(-6)
-      const explorerUrl = "https://etherscan.io/tx/" + alert.txHash
+      const shortTo = escapeHtml(alert.toAddr.slice(0, 8) + "..." + alert.toAddr.slice(-6))
+      const explorerUrl = explorerLink(alert.txHash)
+      const displayValue = escapeHtml(alert.amount)
+      const displayAsset = escapeHtml(alert.asset)
       const ackUrl = APP_URL + "/api/acknowledge?token=" + alert.ackToken
       const instructionsHtml = instructionsBlock(user.instructions)
-      const emailHtml = alertEmailHtml({ shortFrom, shortTo, value: alert.amount, asset: alert.asset, explorerUrl, ackUrl, instructionsHtml, badge: "Reminder #" + count + " &mdash; Alert unconfirmed", testBanner: alert.isTest, pseudonymLabel })
+      const emailHtml = alertEmailHtml({ shortFrom, shortTo, value: displayValue, asset: displayAsset, explorerUrl, ackUrl, instructionsHtml, badge: "Reminder #" + count + " &mdash; Alert unconfirmed", testBanner: alert.isTest, pseudonymLabel })
       const subject = pseudonymLabel ? "[REMINDER #" + count + "] Emergency signal from " + escapeHtml(pseudonymLabel) + " still pending" : "[REMINDER #" + count + "] Emergency signal still pending"
       const from = "Wallert <" + (process.env.ALERT_FROM_EMAIL || "onboarding@resend.dev") + ">"
 
@@ -78,8 +85,8 @@ export async function GET(request) {
       for (const channel of user.channels) {
         if (channel.type === "telegram" && channel.isActive && channel.value) {
           const telegramText = pseudonymLabel
-            ? `🔁 <b>[REMINDER #${count}] WALLERT ALERT — ${escapeHtml(pseudonymLabel)}</b>\n\nAlert unconfirmed!\n\n Amount: ${alert.amount} ${alert.asset}\n From: <code>${shortFrom}</code>\n To: <code>${shortTo}</code>\n\n✅ <a href="${ackUrl}">Confirm receipt</a>${user.instructions ? "\n\n⚠️ <b>EMERGENCY INSTRUCTIONS:</b>\n" + escapeHtml(user.instructions) : ""}`
-            : `🔁 <b>[REMINDER #${count}] WALLERT ALERT</b>\n\nAlert unconfirmed!\n\n Amount: ${alert.amount} ${alert.asset}\n From: <code>${shortFrom}</code>\n To: <code>${shortTo}</code>\n\n✅ <a href="${ackUrl}">Confirm receipt</a>${user.instructions ? "\n\n⚠️ <b>EMERGENCY INSTRUCTIONS:</b>\n" + escapeHtml(user.instructions) : ""}`
+            ? `🔁 <b>[REMINDER #${count}] WALLERT ALERT — ${escapeHtml(pseudonymLabel)}</b>\n\nAlert unconfirmed!\n\n Amount: ${displayValue} ${displayAsset}\n From: <code>${shortFrom}</code>\n To: <code>${shortTo}</code>\n\n✅ <a href="${ackUrl}">Confirm receipt</a>${user.instructions ? "\n\n⚠️ <b>EMERGENCY INSTRUCTIONS:</b>\n" + escapeHtml(user.instructions) : ""}`
+            : `🔁 <b>[REMINDER #${count}] WALLERT ALERT</b>\n\nAlert unconfirmed!\n\n Amount: ${displayValue} ${displayAsset}\n From: <code>${shortFrom}</code>\n To: <code>${shortTo}</code>\n\n✅ <a href="${ackUrl}">Confirm receipt</a>${user.instructions ? "\n\n⚠️ <b>EMERGENCY INSTRUCTIONS:</b>\n" + escapeHtml(user.instructions) : ""}`
           try {
             const tgResult = await sendTelegramMessage(channel.value, telegramText)
             console.log("Telegram OK:", channel.value)

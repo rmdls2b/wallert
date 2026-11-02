@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client"
 import { Resend } from "resend"
 import { NextResponse } from "next/server"
-import { getUserFromRequest, escapeHtml, createRateLimiter, checkEmailLimit } from "../../lib/security"
+import { getUserFromRequest, escapeHtml, createRateLimiter, checkEmailLimit, getClientIp } from "../../lib/security"
 export const dynamic = 'force-dynamic'
 export const fetchCache = 'force-no-store'
 
@@ -24,7 +24,7 @@ export async function POST(request) {
     const userId = getUserFromRequest(request)
     if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
 
-    const ip = request.headers.get("x-forwarded-for") || request.headers.get("x-real-ip") || "unknown"
+    const ip = getClientIp(request)
     if (!testLimiter.check(ip)) {
       return NextResponse.json({ error: "Too many test alerts. Please try again later." }, { status: 429 })
     }
