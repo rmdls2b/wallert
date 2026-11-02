@@ -31,7 +31,7 @@ export default function Accueil() {
                 Try Wallert
               </a>
               <a href="#how" className="inline-block px-7 py-3.5 text-[#9A9A95] text-sm hover:text-white transition-colors">
-                See wow it works
+                See how it works
               </a>
             </div>
           </div>
