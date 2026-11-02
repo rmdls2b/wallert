@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client"
 import { NextResponse } from "next/server"
 import { Resend } from "resend"
 import crypto from "crypto"
-import { createRateLimiter } from "../../lib/security"
+import { createRateLimiter, getClientIp } from "../../lib/security"
 
 const prisma = new PrismaClient()
 const resend = new Resend(process.env.RESEND_API_KEY)
@@ -12,7 +12,7 @@ const APP_URL = process.env.APP_URL || "https://wallert.app"
 
 export async function POST(request) {
   try {
-    const ip = request.headers.get("x-forwarded-for") || request.headers.get("x-real-ip") || "unknown"
+    const ip = getClientIp(request)
     if (!forgotLimiter.check(ip)) return NextResponse.json({ ok: true })
 
     const { email } = await request.json()

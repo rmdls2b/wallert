@@ -1,13 +1,12 @@
 export const dynamic = "force-dynamic"
 import { PrismaClient } from "@prisma/client"
 import { NextResponse } from "next/server"
+import { verifyAdminPassword, adminErrorResponse } from "../../lib/security"
 const prisma = new PrismaClient()
 
 export async function GET(request) {
-  const authHeader = request.headers.get("authorization")
-  if (authHeader !== process.env.DASHBOARD_PASSWORD) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
-  }
+  const auth = verifyAdminPassword(request, request.headers.get("authorization"))
+  if (!auth.ok) return adminErrorResponse(auth)
 
   const now = new Date()
   const h24 = new Date(now - 24 * 60 * 60 * 1000)

@@ -1,14 +1,15 @@
 import { PrismaClient } from "@prisma/client"
 import { NextResponse } from "next/server"
 import bcrypt from "bcryptjs"
-import { createRateLimiter, signToken } from "../../lib/security"
+import { createRateLimiter, signToken, getClientIp } from "../../lib/security"
 
 const prisma = new PrismaClient()
 const loginLimiter = createRateLimiter(5, 15 * 60 * 1000)
+const loginEmailLimiter = createRateLimiter(10, 15 * 60 * 1000)
 
 export async function POST(request) {
   try {
-    const ip = request.headers.get("x-forwarded-for") || request.headers.get("x-real-ip") || "unknown"
+    const ip = getClientIp(request)
     if (!loginLimiter.check(ip)) {
       return NextResponse.json({ error: "Too many login attempts. Please try again later." }, { status: 429 })
     }
@@ -16,6 +17,9 @@ export async function POST(request) {
     const { email, password } = await request.json()
     if (!email || !password) {
       return NextResponse.json({ error: "Email and password required" }, { status: 400 })
+    }
+    if (!loginEmailLimiter.check(String(email).toLowerCase())) {
+      return NextResponse.json({ error: "Too many login attempts. Please try again later." }, { status: 429 })
     }
     const user = await prisma.user.findUnique({ where: { email } })
     if (!user) {

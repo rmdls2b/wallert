@@ -2,14 +2,14 @@ import { PrismaClient } from "@prisma/client"
 import { NextResponse } from "next/server"
 import bcrypt from "bcryptjs"
 import { Resend } from "resend"
-import { createRateLimiter } from "../../lib/security"
+import { createRateLimiter, getClientIp } from "../../lib/security"
 const prisma = new PrismaClient()
 const resend = new Resend(process.env.RESEND_API_KEY)
 const registerLimiter = createRateLimiter(10, 60 * 60 * 1000)
 const APP_URL = process.env.APP_URL || "https://wallert.app"
 export async function POST(request) {
   try {
-    const ip = request.headers.get("x-forwarded-for") || request.headers.get("x-real-ip") || "unknown"
+    const ip = getClientIp(request)
     if (!registerLimiter.check(ip)) {
       return NextResponse.json({ error: "Too many registration attempts. Please try again later." }, { status: 429 })
     }
